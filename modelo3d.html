@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PETCARE HOME · Modelos 3D Interactivos (Perrito & Gatico)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Three.js y OrbitControls desde CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <style>
+    :root {
+      --primary-purple: #6C5CE7;
+      --primary-purple-light: #8C7DE6;
+      --primary-purple-subtle: #F1EFFE;
+      --accent-coral: #FF7675;
+      --accent-coral-hover: #E85A59;
+      --bg-lavender: #F6F5FC;
+      --bg-surface: #FFFFFF;
+      --text-dark: #2D265A;
+      --text-secondary: #7C7A9C;
+      --border-subtle: #EBE8F7;
+      --shadow-soft: 0 12px 36px rgba(108, 92, 231, 0.12);
+      --font-main: 'Nunito', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-lavender);
+      color: var(--text-dark);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Barra Superior Soft UI */
+    .header-bar {
+      position: absolute;
+      top: 18px;
+      left: 24px;
+      right: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .brand-pill {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      padding: 10px 22px;
+      border-radius: 9999px;
+      box-shadow: var(--shadow-soft);
+      border: 1.5px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      pointer-events: auto;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFF;
+      box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
+    }
+
+    .brand-text h1 {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--text-dark);
+      letter-spacing: -0.3px;
+      line-height: 1.1;
+    }
+
+    .brand-text span {
+      font-size: 0.75rem;
+      color: var(--primary-purple);
+      font-weight: 700;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      pointer-events: auto;
+    }
+
+    .btn-header {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border: 1.5px solid var(--border-subtle);
+      padding: 10px 18px;
+      border-radius: 9999px;
+      font-family: var(--font-main);
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .btn-header:hover {
+      background: #FFFFFF;
+      transform: translateY(-2px);
+      border-color: var(--primary-purple);
+      color: var(--primary-purple);
+    }
+
+    /* Contenedor del Lienzo WebGL */
+    #canvas-container {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    /* Panel de Control Flotante Inferior */
+    .controls-overlay {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      padding: 14px 22px;
+      border-radius: 28px;
+      box-shadow: 0 16px 40px rgba(108, 92, 231, 0.18);
+      border: 1.5px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 100;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* Selector de personaje tipo píldora */
+    .mode-selector {
+      display: flex;
+      background: #F1EFFE;
+      padding: 4px;
+      border-radius: 9999px;
+      border: 1px solid #D8D2FB;
+    }
+
+    .mode-btn {
+      background: transparent;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-family: var(--font-main);
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mode-btn.active {
+      background: var(--primary-purple);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(108, 92, 231, 0.35);
+    }
+
+    .action-pill-btn {
+      background: var(--accent-coral);
+      color: #FFFFFF;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 9999px;
+      font-family: var(--font-main);
+      font-size: 0.88rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 6px 18px rgba(255, 118, 117, 0.35);
+    }
+
+    .action-pill-btn:hover {
+      background: var(--accent-coral-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(255, 118, 117, 0.45);
+    }
+
+    .action-pill-btn:active {
+      transform: scale(0.96);
+    }
+
+    .tool-icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-subtle);
+      color: var(--text-dark);
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .tool-icon-btn:hover {
+      border-color: var(--primary-purple);
+      color: var(--primary-purple);
+      transform: translateY(-2px);
+    }
+
+    .tool-icon-btn.active {
+      background: #F1EFFE;
+      border-color: var(--primary-purple);
+      color: var(--primary-purple);
+    }
+
+    /* Tarjeta Flotante Lateral con Información de la Mascota */
+    .pet-info-card {
+      position: absolute;
+      top: 90px;
+      left: 24px;
+      width: 290px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+      border: 1.5px solid var(--border-subtle);
+      z-index: 90;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .info-card-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(108, 92, 231, 0.15);
+      border: 2px solid #FFFFFF;
+    }
+
+    .info-card-title h3 {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--text-dark);
+    }
+
+    .info-card-title span {
+      font-size: 0.78rem;
+      color: var(--primary-purple);
+      font-weight: 700;
+    }
+
+    .info-meta-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .info-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: #E8F8F0;
+      color: #0F6848;
+    }
+
+    .info-desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+      margin-bottom: 14px;
+    }
+
+    .info-traits {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .trait-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Pista de interacción */
+    .drag-hint-pill {
+      position: absolute;
+      top: 90px;
+      right: 24px;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(12px);
+      padding: 8px 16px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-subtle);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+      box-shadow: 0 4px 16px rgba(108, 92, 231, 0.08);
+      z-index: 90;
+    }
+
+    /* Indicador de Click / Caricias */
+    .heart-burst {
+      position: absolute;
+      pointer-events: none;
+      font-size: 1.8rem;
+      animation: floatUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      z-index: 200;
+    }
+
+    @keyframes floatUpFade {
+      0% { opacity: 1; transform: translate(-50%, -50%) scale(0.6); }
+      50% { transform: translate(-50%, -100px) scale(1.2); }
+      100% { opacity: 0; transform: translate(-50%, -150px) scale(1.4); }
+    }
+
+    @media (max-width: 768px) {
+      .pet-info-card {
+        display: none;
+      }
+      .controls-overlay {
+        bottom: 16px;
+        padding: 10px 16px;
+        gap: 10px;
+      }
+      .brand-text span {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra Superior -->
+  <header class="header-bar">
+    <div class="brand-pill">
+      <div class="brand-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="4.5" cy="9.5" r="2.5"/>
+          <circle cx="9" cy="5.5" r="2.5"/>
+          <circle cx="15" cy="5.5" r="2.5"/>
+          <circle cx="19.5" cy="9.5" r="2.5"/>
+          <path d="M12 18c-3.5 0-6-2.5-6-5 0-2 1.5-3.5 3.5-3.5 1 0 1.8.5 2.5 1.2.7-.7 1.5-1.2 2.5-1.2 2 0 3.5 1.5 3.5 3.5 0 2.5-2.5 5-6 5z"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>PETCARE HOME · 3D</h1>
+        <span>Mascotas Virtuales Nativas en WebGL / JavaScript</span>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <a href="index.html" class="btn-header" title="Volver a la App Principal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span>Volver a la App</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Pista de Interacción 3D -->
+  <div class="drag-hint-pill">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/>
+      <path d="M12 6v6l4 2"/>
+    </svg>
+    Arrastra para girar · Rueda para zoom · Clic para mimar
+  </div>
+
+  <!-- Tarjeta Flotante con Datos de la Mascota Activa -->
+  <div class="pet-info-card" id="pet-info-card">
+    <div class="info-card-header">
+      <img src="img/perrito.png" alt="Mascota" class="info-card-avatar" id="card-avatar">
+      <div class="info-card-title">
+        <h3 id="card-name">Milo</h3>
+        <span id="card-breed">Cachorro Golden Retriever</span>
+      </div>
+    </div>
+    <div class="info-meta-row">
+      <span class="info-badge" id="card-status">Paciente VIP</span>
+      <span class="info-badge" style="background:#EBF5FB; color:#1E6091;" id="card-age">2 Años · 10 Kg</span>
+    </div>
+    <p class="info-desc" id="card-desc">
+      Cachorrito juguetón de pelaje dorado miel con collar azul y medallita dorada. Le encanta que le rasquen la pancita y mover su colita.
+    </p>
+    <div class="info-traits">
+      <div class="trait-item"><span>✨</span> <span>Personalidad: Cariñoso y enérgico</span></div>
+      <div class="trait-item"><span>🦴</span> <span>Plan Domiciliario: Esencial Canino</span></div>
+      <div class="trait-item"><span>❤️</span> <span>Tutor: Juan Pérez (Bogotá)</span></div>
+    </div>
+  </div>
+
+  <!-- Contenedor del Canvas 3D -->
+  <div id="canvas-container"></div>
+
+  <!-- Controles Flotantes Inferiores -->
+  <div class="controls-overlay">
+    <!-- Selector de mascota -->
+    <div class="mode-selector">
+      <button class="mode-btn active" id="btn-dog" onclick="switchPet('dog')">
+        <span>🐕</span> Milo (Perrito)
+      </button>
+      <button class="mode-btn" id="btn-cat" onclick="switchPet('cat')">
+        <span>🐱</span> Luna (Gatico)
+      </button>
+      <button class="mode-btn" id="btn-both" onclick="switchPet('both')">
+        <span>🐾</span> Juntos
+      </button>
+    </div>
+
+    <!-- Botón de acción cute / mimar -->
+    <button class="action-pill-btn" onclick="petAction()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      </svg>
+      <span id="action-label">¡Dar Mimos!</span>
+    </button>
+
+    <!-- Botón de Auto-Rotación -->
+    <button class="tool-icon-btn active" id="btn-autorotate" onclick="toggleAutoRotate()" title="Activar/Desactivar Giro Automático">
+      🔄
+    </button>
+
+    <!-- Botón de Reiniciar Vista -->
+    <button class="tool-icon-btn" onclick="resetCamera()" title="Centrar Cámara">
+      🎯
+    </button>
+  </div>
+
+  <!-- LÓGICA THREE.JS NATIVA PARA MODELOS 3D PROCEDURALES CUTE -->
+  <script>
+    let scene, camera, renderer, controls;
+    let dogGroup, catGroup, bothGroup;
+    let currentMode = 'dog';
+    let autoRotate = true;
+    let clock = new THREE.Clock();
+    let dogTail, dogHead, dogTongue, dogEars = [];
+    let catTail, catHead, catPaws = [], catYarn;
+    let floatingElements = [];
+
+    // ========================================================================
+    // PALETA VIVA ESTILO TOON (más saturada, nada pálida)
+    // ========================================================================
+    const colors = {
+      dogFur: 0xBD6F29,        // Marrón caramelo cálido con alto contraste
+      dogCream: 0xF5DCBC,      // Crema suave para pecho y hocico
+      dogEars: 0x8C4916,       // Marrón avellana cálido para orejas redondeadas
+      dogCollar: 0x6C5CE7,     // Collar lila PETCARE HOME
+      dogGold: 0xFFC83D,       // Medallita dorada
+      dogNose: 0x2A1B28,       // Trufa oscura definida
+      dogTongue: 0xFF6B81,     // Lengüita rosa
+      blush: 0xFF9AAE,         // Rubor de mejillas
+
+      catFur: 0xFF9233,        // Naranja vivo
+      catStripes: 0xD9631A,    // Rayas atigradas
+      catWhite: 0xFFF7EE,      // Blanco cálido
+      catEarsInner: 0xFFAFC0,  // Interior de orejas
+      catNose: 0xFF7A93,       // Naricita
+      catPads: 0xFF9DB0,       // Cojinetes
+      whisker: 0x9C8676,       // Bigotes
+
+      yarnCyan: 0x3EC9F0,
+      yarnPink: 0xFF6F86,
+      yarnYellow: 0xFFD93D,
+
+      heartPink: 0xFF6F86,
+      starGold: 0xFFC83D
+    };
+
+    // Rampa de sombreado toon de 3 tonos (da volumen sin lavar los colores)
+    let toonGradient = null;
+    function getToonGradient() {
+      if (toonGradient) return toonGradient;
+      const data = new Uint8Array([
+        150, 150, 150, 255,
+        210, 210, 210, 255,
+        255, 255, 255, 255
+      ]);
+      toonGradient = new THREE.DataTexture(data, 3, 1, THREE.RGBAFormat);
+      toonGradient.minFilter = THREE.NearestFilter;
+      toonGradient.magFilter = THREE.NearestFilter;
+      toonGradient.generateMipmaps = false;
+      toonGradient.needsUpdate = true;
+      return toonGradient;
+    }
+
+    function createToonMaterial(color) {
+      return new THREE.MeshToonMaterial({ color: color, gradientMap: getToonGradient() });
+    }
+
+    const V = (x, y, z) => new THREE.Vector3(x, y, z);
+
+    // Esfera suave escalable (bloque básico de los modelos)
+    function sph(mat, r, x, y, z, sx = 1, sy = 1, sz = 1) {
+      const m = new THREE.Mesh(new THREE.SphereGeometry(r, 28, 22), mat);
+      m.position.set(x, y, z);
+      m.scale.set(sx, sy, sz);
+      return m;
+    }
+
+    // Extremidad tipo cápsula: cilindro + esferas en ambos extremos,
+    // así las patitas quedan perfectamente unidas al cuerpo sin huecos
+    function makeLimb(start, end, rStart, rEnd, mat) {
+      const group = new THREE.Group();
+      const dir = new THREE.Vector3().subVectors(end, start);
+      const len = dir.length();
+      const cyl = new THREE.Mesh(new THREE.CylinderGeometry(rEnd, rStart, len, 20), mat);
+      cyl.position.copy(start).add(end).multiplyScalar(0.5);
+      cyl.quaternion.setFromUnitVectors(V(0, 1, 0), dir.clone().normalize());
+      group.add(cyl);
+      group.add(sph(mat, rStart, start.x, start.y, start.z));
+      group.add(sph(mat, rEnd, end.x, end.y, end.z));
+      return group;
+    }
+
+    function enableShadows(group) {
+      group.traverse(o => { if (o.isMesh) o.castShadow = true; });
+    }
+
+    function init() {
+      const container = document.getElementById('canvas-container');
+
+      // 1. Escena
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xF6F5FC); // Fondo lavanda suave
+
+      // 2. Cámara
+      camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 100);
+      camera.position.set(0, 3.2, 7.5);
+
+      // 3. Renderizador
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      container.appendChild(renderer.domElement);
+
+      // 4. Controles Orbitales
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.maxPolarAngle = Math.PI / 2 + 0.05; // No pasar del suelo
+      controls.minDistance = 3.5;
+      controls.maxDistance = 12;
+      controls.target.set(0, 1.1, 0);
+
+      // 5. Iluminación Cálida y Suave Soft UI
+      const ambientLight = new THREE.HemisphereLight(0xFFFFFF, 0xE6DEFF, 0.45);
+      scene.add(ambientLight);
+
+      const mainLight = new THREE.DirectionalLight(0xFFF6E8, 0.62);
+      mainLight.position.set(5, 10, 6);
+      mainLight.castShadow = true;
+      mainLight.shadow.mapSize.width = 2048;
+      mainLight.shadow.mapSize.height = 2048;
+      mainLight.shadow.bias = -0.0005;
+      scene.add(mainLight);
+
+      const fillLight = new THREE.DirectionalLight(0xE0D4FD, 0.18);
+      fillLight.position.set(-5, 6, -4);
+      scene.add(fillLight);
+
+      // 6. Plataforma / Isla Flotante
+      createPlatform();
+
+      // 7. Construcción de Modelos Procedurales
+      createDogModel();
+      createCatModel();
+
+      // 8. Elementos Flotantes (Corazones y Estrellitas Cute)
+      createFloatingCuteDecorations();
+
+      // Configurar modo inicial
+      updateVisibility();
+
+      // 9. Eventos
+      window.addEventListener('resize', onWindowResize);
+      container.addEventListener('pointerdown', onCanvasClick);
+
+      // Ciclo de animación
+      animate();
+    }
+
+    // ========================================================================
+    // PLATAFORMA / ISLA BASE SOFT UI
+    // ========================================================================
+    function createPlatform() {
+      const platformGeo = new THREE.CylinderGeometry(2.9, 3.1, 0.35, 48);
+      const platformMat = new THREE.MeshToonMaterial({ color: 0xFFFFFF });
+      const platform = new THREE.Mesh(platformGeo, platformMat);
+      platform.position.y = -0.175;
+      platform.receiveShadow = true;
+      scene.add(platform);
+
+      // Anillo decorativo lila
+      const ringGeo = new THREE.TorusGeometry(3.1, 0.08, 16, 64);
+      const ringMat = new THREE.MeshToonMaterial({ color: 0xDCD6F7 });
+      const ring = new THREE.Mesh(ringGeo, ringMat);
+      ring.rotation.x = Math.PI / 2;
+      ring.position.y = 0;
+      scene.add(ring);
+    }
+
+    // ========================================================================
+    // CONSTRUCCIÓN DEL PERRITO (MILO - GOLDEN RETRIEVER CACHORRO)
+    // ========================================================================
+    function createDogModel() {
+      dogGroup = new THREE.Group();
+
+      const fur = createToonMaterial(colors.dogFur);
+      const cream = createToonMaterial(colors.dogCream);
+      const earMat = createToonMaterial(colors.dogEars);
+      const noseMat = createToonMaterial(colors.dogNose);
+      const tongueMat = createToonMaterial(colors.dogTongue);
+      const collarMat = createToonMaterial(colors.dogCollar);
+      const goldMat = createToonMaterial(colors.dogGold);
+      const blushMat = new THREE.MeshBasicMaterial({ color: colors.blush, transparent: true, opacity: 0.8 });
+      const eyeMat = new THREE.MeshBasicMaterial({ color: 0x241B33 });
+      const sparkleMat = new THREE.MeshBasicMaterial({ color: 0xFFFFFF });
+
+      // --- CUERPO SENTADO (forma de pera) ---
+      dogGroup.add(sph(fur, 0.62, 0, 0.9, 0, 1.0, 1.15, 0.95));
+      dogGroup.add(sph(fur, 0.62, 0, 0.5, -0.02, 1.05, 0.78, 0.92));
+
+      // Pecho crema esponjoso con mechones
+      dogGroup.add(sph(cream, 0.4, 0, 0.95, 0.4, 0.9, 1.1, 0.55));
+      dogGroup.add(sph(cream, 0.16, -0.12, 0.72, 0.5));
+      dogGroup.add(sph(cream, 0.16, 0.12, 0.72, 0.5));
+      dogGroup.add(sph(cream, 0.14, 0, 0.62, 0.52));
+
+      // Cuello
+      dogGroup.add(sph(fur, 0.4, 0, 1.45, 0.15));
+
+      // Collar + medallita
+      const collar = new THREE.Mesh(new THREE.TorusGeometry(0.4, 0.065, 16, 40), collarMat);
+      collar.rotation.x = Math.PI / 2 + 0.3;
+      collar.position.set(0, 1.42, 0.16);
+      dogGroup.add(collar);
+
+      const tag = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.035, 24), goldMat);
+      tag.rotation.x = Math.PI / 2 - 0.3;
+      tag.position.set(0, 1.22, 0.64);
+      dogGroup.add(tag);
+
+      // --- CABEZA ---
+      dogHead = new THREE.Group();
+      dogHead.position.set(0, 1.95, 0.18);
+
+      dogHead.add(sph(fur, 0.6, 0, 0, 0, 1.08, 0.95, 1.0));
+
+      // Mofletes esponjosos
+      dogHead.add(sph(fur, 0.26, -0.4, -0.16, 0.2));
+      dogHead.add(sph(fur, 0.26, 0.4, -0.16, 0.2));
+
+      // Mechoncito en la coronilla
+      dogHead.add(sph(fur, 0.14, 0, 0.52, 0.12));
+      dogHead.add(sph(fur, 0.11, -0.13, 0.5, 0.1));
+      dogHead.add(sph(fur, 0.11, 0.13, 0.5, 0.1));
+
+      // Franja crema en la frente
+      dogHead.add(sph(cream, 0.13, 0, 0.2, 0.53, 0.75, 1.3, 0.55));
+
+      // Hocico y trufa
+      dogHead.add(sph(cream, 0.28, 0, -0.18, 0.45, 1.2, 0.85, 1.05));
+      dogHead.add(sph(noseMat, 0.09, 0, -0.08, 0.73, 1.35, 0.9, 0.9));
+
+      // Boquita y lengüita
+      dogHead.add(sph(noseMat, 0.1, 0, -0.3, 0.67, 1.1, 0.5, 0.6));
+      dogTongue = sph(tongueMat, 0.09, 0, -0.37, 0.7, 0.9, 0.45, 1.0);
+      dogHead.add(dogTongue);
+
+      // Ojitos brillantes
+      [-0.23, 0.23].forEach(x => {
+        const eye = sph(eyeMat, 0.095, x, 0.06, 0.52);
+        eye.add(sph(sparkleMat, 0.032, 0.03, 0.035, 0.07));
+        eye.add(sph(sparkleMat, 0.015, -0.03, -0.03, 0.08));
+        dogHead.add(eye);
+      });
+
+      // Rubor
+      dogHead.add(sph(blushMat, 0.07, -0.36, -0.1, 0.5, 1.3, 0.7, 0.4));
+      dogHead.add(sph(blushMat, 0.07, 0.36, -0.1, 0.5, 1.3, 0.7, 0.4));
+
+      // Orejas caídas REDONDEADAS (forma de gota suave)
+      [-1, 1].forEach(side => {
+        const earGroup = new THREE.Group();
+        earGroup.position.set(side * 0.52, 0.3, -0.02);
+        const ear = sph(earMat, 0.27, side * 0.08, -0.26, 0.02, 0.62, 1.2, 0.42);
+        ear.rotation.z = side * 0.25;
+        earGroup.add(ear);
+        dogHead.add(earGroup);
+        dogEars.push(earGroup);
+      });
+
+      dogGroup.add(dogHead);
+
+      // --- PATITAS (unidas con articulaciones redondeadas) ---
+      [-1, 1].forEach(side => {
+        // Delanteras
+        dogGroup.add(makeLimb(V(side * 0.3, 1.0, 0.4), V(side * 0.3, 0.17, 0.6), 0.16, 0.14, fur));
+        dogGroup.add(sph(cream, 0.17, side * 0.3, 0.1, 0.68, 1.0, 0.62, 1.3));
+
+        // Traseras: muslo esponjoso + pie apoyado
+        dogGroup.add(sph(fur, 0.34, side * 0.45, 0.4, -0.02, 0.8, 0.95, 1.15));
+        dogGroup.add(makeLimb(V(side * 0.46, 0.32, 0.1), V(side * 0.48, 0.13, 0.28), 0.14, 0.12, fur));
+        dogGroup.add(sph(fur, 0.16, side * 0.48, 0.09, 0.34, 0.9, 0.6, 1.45));
+      });
+
+      // --- COLA ESPONJOSA ---
+      dogTail = new THREE.Group();
+      dogTail.position.set(0, 0.32, -0.5);
+      const tailCurve = new THREE.CatmullRomCurve3([
+        V(0, 0, 0), V(0, 0.12, -0.25), V(0.04, 0.42, -0.42), V(0.1, 0.72, -0.36)
+      ]);
+      dogTail.add(new THREE.Mesh(new THREE.TubeGeometry(tailCurve, 24, 0.1, 14, false), fur));
+      dogTail.add(sph(fur, 0.1, 0, 0, 0));
+      dogTail.add(sph(cream, 0.13, 0.1, 0.74, -0.36, 1, 1.15, 1));
+      dogGroup.add(dogTail);
+
+      enableShadows(dogGroup);
+      scene.add(dogGroup);
+    }
+
+    // ========================================================================
+    // CONSTRUCCIÓN DE LA GATITA (LUNA - TABBY NARANJA CON OVILLO)
+    // ========================================================================
+    function createCatModel() {
+      catGroup = new THREE.Group();
+
+      const fur = createToonMaterial(colors.catFur);
+      const stripe = createToonMaterial(colors.catStripes);
+      const white = createToonMaterial(colors.catWhite);
+      const innerEar = createToonMaterial(colors.catEarsInner);
+      const noseMat = createToonMaterial(colors.catNose);
+      const padMat = createToonMaterial(colors.catPads);
+      const blushMat = new THREE.MeshBasicMaterial({ color: colors.blush, transparent: true, opacity: 0.8 });
+      const whiskerMat = new THREE.MeshBasicMaterial({ color: colors.whisker });
+      const eyeMat = new THREE.MeshBasicMaterial({ color: 0x241B33 });
+      const sparkleMat = new THREE.MeshBasicMaterial({ color: 0xFFFFFF });
+
+      // --- CUERPO SENTADO ---
+      catGroup.add(sph(fur, 0.6, 0, 0.8, 0, 0.95, 1.15, 0.95));
+      catGroup.add(sph(fur, 0.6, 0, 0.48, 0, 1.05, 0.75, 1.0));
+
+      // Barriguita y pechito blanco esponjoso
+      catGroup.add(sph(white, 0.42, 0, 0.85, 0.36, 0.85, 1.15, 0.55));
+      catGroup.add(sph(white, 0.18, 0, 1.12, 0.4));
+      catGroup.add(sph(white, 0.15, -0.12, 1.02, 0.44));
+      catGroup.add(sph(white, 0.15, 0.12, 1.02, 0.44));
+
+      // Rayas atigradas que abrazan la espalda
+      [[0.85, 0.575], [1.0, 0.553], [1.15, 0.5]].forEach(([y, r]) => {
+        const arc = new THREE.Mesh(new THREE.TorusGeometry(r, 0.035, 8, 32, Math.PI * 0.8), stripe);
+        arc.rotation.x = -Math.PI / 2;
+        arc.rotation.z = Math.PI * 0.1;
+        arc.position.set(0, y, 0);
+        catGroup.add(arc);
+      });
+
+      // --- CABEZA (sin el rectángulo de la frente) ---
+      catHead = new THREE.Group();
+      catHead.position.set(0, 1.6, 0.1);
+
+      catHead.add(sph(fur, 0.56, 0, 0, 0, 1.12, 0.95, 1.0));
+
+      // Mofletes esponjosos
+      catHead.add(sph(fur, 0.24, -0.42, -0.14, 0.12, 1, 0.8, 0.9));
+      catHead.add(sph(fur, 0.24, 0.42, -0.14, 0.12, 1, 0.8, 0.9));
+
+      // Hocico blanco, mentón y naricita
+      catHead.add(sph(white, 0.16, -0.1, -0.16, 0.46));
+      catHead.add(sph(white, 0.16, 0.1, -0.16, 0.46));
+      catHead.add(sph(white, 0.11, 0, -0.27, 0.42));
+      catHead.add(sph(noseMat, 0.055, 0, -0.06, 0.6, 1.4, 0.9, 0.8));
+
+      // Ojitos brillantes
+      [-0.22, 0.22].forEach(x => {
+        const eye = sph(eyeMat, 0.1, x, 0.05, 0.48);
+        eye.add(sph(sparkleMat, 0.034, 0.03, 0.035, 0.075));
+        eye.add(sph(sparkleMat, 0.016, -0.03, -0.03, 0.085));
+        catHead.add(eye);
+      });
+
+      // Rubor
+      catHead.add(sph(blushMat, 0.065, -0.34, -0.12, 0.47, 1.3, 0.7, 0.4));
+      catHead.add(sph(blushMat, 0.065, 0.34, -0.12, 0.47, 1.3, 0.7, 0.4));
+
+      // Bigotes
+      [-1, 1].forEach(side => {
+        [-0.04, 0, 0.04].forEach((dy, i) => {
+          const w = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.36, 6), whiskerMat);
+          w.position.set(side * 0.36, -0.17 + dy, 0.5);
+          w.rotation.z = Math.PI / 2 + side * (i - 1) * 0.15;
+          catHead.add(w);
+        });
+      });
+
+      // Orejitas puntiagudas con interior rosa
+      [-1, 1].forEach(side => {
+        const earGeo = new THREE.ConeGeometry(0.2, 0.42, 20);
+        earGeo.scale(1, 1, 0.55);
+        const ear = new THREE.Mesh(earGeo, fur);
+        ear.position.set(side * 0.34, 0.52, -0.02);
+        ear.rotation.z = -side * 0.3;
+
+        const innerGeo = new THREE.ConeGeometry(0.12, 0.28, 20);
+        innerGeo.scale(1, 1, 0.35);
+        const inner = new THREE.Mesh(innerGeo, innerEar);
+        inner.position.set(0, -0.04, 0.08);
+        ear.add(inner);
+
+        catHead.add(ear);
+      });
+
+      catGroup.add(catHead);
+
+      // --- PATITAS DELANTERAS SOBRE EL OVILLO (pivotan desde el hombro) ---
+      [-1, 1].forEach(side => {
+        const pawGroup = new THREE.Group();
+        pawGroup.position.set(side * 0.22, 1.0, 0.3);
+        const endLocal = V(-side * 0.05, -0.38, 0.36);
+        pawGroup.add(makeLimb(V(0, 0, 0), endLocal, 0.12, 0.1, fur));
+        pawGroup.add(sph(white, 0.13, endLocal.x, endLocal.y - 0.02, endLocal.z + 0.04, 1, 0.75, 1.15));
+        pawGroup.add(sph(padMat, 0.045, endLocal.x, endLocal.y - 0.07, endLocal.z + 0.1, 1, 0.6, 1));
+        catGroup.add(pawGroup);
+        catPaws.push(pawGroup);
+      });
+
+      // --- PATITAS TRASERAS ---
+      [-1, 1].forEach(side => {
+        catGroup.add(sph(fur, 0.3, side * 0.42, 0.35, 0, 0.8, 0.9, 1.15));
+        catGroup.add(makeLimb(V(side * 0.42, 0.28, 0.12), V(side * 0.4, 0.12, 0.28), 0.12, 0.1, fur));
+        catGroup.add(sph(white, 0.14, side * 0.4, 0.08, 0.34, 0.85, 0.55, 1.4));
+      });
+
+      // --- OVILLO DE LANA TRICOLOR ---
+      catYarn = new THREE.Group();
+      catYarn.position.set(0, 0.32, 0.82);
+      catYarn.add(sph(createToonMaterial(colors.yarnCyan), 0.3, 0, 0, 0));
+
+      const ring1 = new THREE.Mesh(new THREE.TorusGeometry(0.305, 0.04, 12, 36), createToonMaterial(colors.yarnPink));
+      ring1.rotation.x = 0.8;
+      catYarn.add(ring1);
+      const ring2 = new THREE.Mesh(new THREE.TorusGeometry(0.305, 0.035, 12, 36), createToonMaterial(colors.yarnYellow));
+      ring2.rotation.y = 1.1;
+      catYarn.add(ring2);
+      const ring3 = new THREE.Mesh(new THREE.TorusGeometry(0.305, 0.03, 12, 36), createToonMaterial(colors.yarnPink));
+      ring3.rotation.set(1.6, 0.4, 0);
+      catYarn.add(ring3);
+
+      const stringCurve = new THREE.CatmullRomCurve3([
+        V(0.12, -0.2, 0.18), V(0.3, -0.29, 0.35), V(0.55, -0.3, 0.25), V(0.75, -0.3, 0.45)
+      ]);
+      catYarn.add(new THREE.Mesh(new THREE.TubeGeometry(stringCurve, 24, 0.025, 8, false), createToonMaterial(colors.yarnPink)));
+      catGroup.add(catYarn);
+
+      // --- COLA LARGA RODEANDO EL CUERPO, CON ANILLOS ATIGRADOS ---
+      catTail = new THREE.Group();
+      catTail.position.set(0, 0.12, -0.48);
+      const tailCurve = new THREE.CatmullRomCurve3([
+        V(0, 0, 0), V(0.4, -0.03, -0.1), V(0.72, 0.0, 0.15), V(0.82, 0.2, 0.45), V(0.72, 0.42, 0.6)
+      ]);
+      catTail.add(new THREE.Mesh(new THREE.TubeGeometry(tailCurve, 32, 0.08, 14, false), fur));
+      catTail.add(sph(fur, 0.08, 0, 0, 0));
+      [0.3, 0.5, 0.7].forEach(t => {
+        const ring = new THREE.Mesh(new THREE.TorusGeometry(0.083, 0.022, 8, 20), stripe);
+        ring.position.copy(tailCurve.getPoint(t));
+        ring.quaternion.setFromUnitVectors(V(0, 0, 1), tailCurve.getTangent(t).normalize());
+        catTail.add(ring);
+      });
+      catTail.add(sph(white, 0.085, 0.72, 0.42, 0.6));
+      catGroup.add(catTail);
+
+      enableShadows(catGroup);
+      scene.add(catGroup);
+    }
+
+    // ========================================================================
+    // DECORACIONES FLOTANTES CUTE (CORAZONES Y ESTRELLAS)
+    // ========================================================================
+    function createFloatingCuteDecorations() {
+      // Función para crear geometría 3D de corazón extruido
+      const heartShape = new THREE.Shape();
+      const x = 0, y = 0;
+      heartShape.moveTo(x + 0.25, y + 0.25);
+      heartShape.bezierCurveTo(x + 0.25, y + 0.25, x + 0.2, y, x, y);
+      heartShape.bezierCurveTo(x - 0.3, y, x - 0.3, y + 0.35, x - 0.3, y + 0.35);
+      heartShape.bezierCurveTo(x - 0.3, y + 0.55, x - 0.1, y + 0.77, x + 0.25, y + 0.95);
+      heartShape.bezierCurveTo(x + 0.6, y + 0.77, x + 0.8, y + 0.55, x + 0.8, y + 0.35);
+      heartShape.bezierCurveTo(x + 0.8, y + 0.35, x + 0.8, y, x + 0.5, y);
+      heartShape.bezierCurveTo(x + 0.35, y, x + 0.25, y + 0.25, x + 0.25, y + 0.25);
+
+      const extrudeSettings = { depth: 0.1, bevelEnabled: true, bevelSegments: 3, steps: 1, bevelSize: 0.04, bevelThickness: 0.04 };
+      const heartGeo = new THREE.ExtrudeGeometry(heartShape, extrudeSettings);
+      heartGeo.center();
+      heartGeo.scale(0.35, 0.35, 0.35);
+
+      const heartMat = createToonMaterial(colors.heartPink);
+      const starMat = createToonMaterial(colors.starGold);
+
+      // Posiciones de corazones flotantes alrededor
+      const heartPositions = [
+        { x: -1.8, y: 2.2, z: 0.8 },
+        { x: 1.9, y: 2.5, z: 0.4 },
+        { x: 1.5, y: 1.2, z: -1.2 },
+        { x: -1.6, y: 1.5, z: -1.0 }
+      ];
+
+      heartPositions.forEach((pos, i) => {
+        const heartMesh = new THREE.Mesh(heartGeo, heartMat);
+        heartMesh.position.set(pos.x, pos.y, pos.z);
+        heartMesh.rotation.z = Math.PI; // Invertir forma de bezier
+        scene.add(heartMesh);
+        floatingElements.push({
+          mesh: heartMesh,
+          initialY: pos.y,
+          speed: 1.8 + i * 0.4,
+          rotSpeed: 0.8 + i * 0.2,
+          offset: i * 1.5
+        });
+      });
+
+      // Estrellitas flotantes
+      const starGeo = new THREE.OctahedronGeometry(0.14, 0);
+      const starPositions = [
+        { x: -1.4, y: 2.8, z: -0.2 },
+        { x: 1.6, y: 3.1, z: 0.9 },
+        { x: 0.0, y: 3.3, z: -1.4 }
+      ];
+
+      starPositions.forEach((pos, i) => {
+        const starMesh = new THREE.Mesh(starGeo, starMat);
+        starMesh.position.set(pos.x, pos.y, pos.z);
+        scene.add(starMesh);
+        floatingElements.push({
+          mesh: starMesh,
+          initialY: pos.y,
+          speed: 2.2 + i * 0.3,
+          rotSpeed: 1.5,
+          offset: i * 2.0
+        });
+      });
+    }
+
+    // ========================================================================
+    // CONMUTACIÓN DE MODOS (PERRITO, GATICO, AMBOS JUNTOS)
+    // ========================================================================
+    function switchPet(mode) {
+      currentMode = mode;
+
+      document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(`btn-${mode}`).classList.add('active');
+
+      updateVisibility();
+      updateInfoCard(mode);
+
+      // Efecto suave de cámara según el modo
+      if (mode === 'dog') {
+        controls.target.set(0, 1.2, 0);
+      } else if (mode === 'cat') {
+        controls.target.set(0, 1.1, 0);
+      } else {
+        controls.target.set(0, 1.15, 0);
+      }
+    }
+
+    function updateVisibility() {
+      if (currentMode === 'dog') {
+        dogGroup.visible = true;
+        dogGroup.position.set(0, 0, 0);
+        catGroup.visible = false;
+      } else if (currentMode === 'cat') {
+        dogGroup.visible = false;
+        catGroup.visible = true;
+        catGroup.position.set(0, 0, 0);
+      } else {
+        // Modo juntos: perrito a la izquierda, gatico a la derecha
+        dogGroup.visible = true;
+        catGroup.visible = true;
+        dogGroup.position.set(-1.15, 0, 0.1);
+        catGroup.position.set(1.15, 0, -0.1);
+      }
+    }
+
+    function updateInfoCard(mode) {
+      const card = document.getElementById('pet-info-card');
+      const avatar = document.getElementById('card-avatar');
+      const name = document.getElementById('card-name');
+      const breed = document.getElementById('card-breed');
+      const desc = document.getElementById('card-desc');
+      const age = document.getElementById('card-age');
+      const actionLabel = document.getElementById('action-label');
+
+      if (mode === 'dog') {
+        avatar.src = 'img/perrito.png';
+        name.textContent = 'Milo';
+        breed.textContent = 'Cachorro Golden Retriever';
+        desc.textContent = 'Cachorrito juguetón de pelaje dorado miel con collar azul y medallita dorada. Le encanta mover la cola y dar besitos.';
+        age.textContent = '2 Años · 10 Kg';
+        actionLabel.textContent = '¡Dar Mimos!';
+      } else if (mode === 'cat') {
+        avatar.src = 'img/gatico.png';
+        name.textContent = 'Luna';
+        breed.textContent = 'Gatita Tabby Naranja';
+        desc.textContent = 'Gatita adorable de pelaje naranja con rayas atigradas y patitas blancas. Adora jugar con su ovillo de lana tricolor.';
+        age.textContent = '1 Año · 3.9 Kg';
+        actionLabel.textContent = '¡Jugar con Lana!';
+      } else {
+        avatar.src = 'img/perrito.png';
+        name.textContent = 'Milo & Luna';
+        breed.textContent = 'Mejores Amigos Domiciliarios';
+        desc.textContent = 'Ambos pacientes en su consulta y jornada de estimulación lúdica a domicilio. ¡Cuidado y bienestar integral PETCARE HOME!';
+        age.textContent = '2 Pacientes Felices';
+        actionLabel.textContent = '¡Celebrar Amistad!';
+      }
+    }
+
+    // ========================================================================
+    // ACCIÓN CUTE / INTERACCIÓN
+    // ========================================================================
+    let isBouncing = false;
+    let bounceTimer = 0;
+
+    function petAction() {
+      isBouncing = true;
+      bounceTimer = 0;
+
+      // Disparar ráfaga de corazoncitos en la pantalla
+      spawnHeartBurst(window.innerWidth / 2, window.innerHeight / 2);
+      spawnHeartBurst(window.innerWidth / 2 - 80, window.innerHeight / 2 - 40);
+      spawnHeartBurst(window.innerWidth / 2 + 80, window.innerHeight / 2 - 50);
+    }
+
+    function spawnHeartBurst(x, y) {
+      const heart = document.createElement('div');
+      heart.className = 'heart-burst';
+      heart.textContent = ['💖', '✨', '🐾', '🌸', '⭐'][Math.floor(Math.random() * 5)];
+      heart.style.left = `${x}px`;
+      heart.style.top = `${y}px`;
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 1000);
+    }
+
+    function onCanvasClick(e) {
+      // Si el clic no fue en botones
+      if (e.target.closest('.controls-overlay') || e.target.closest('.header-bar')) return;
+      spawnHeartBurst(e.clientX, e.clientY);
+      isBouncing = true;
+      bounceTimer = 0;
+    }
+
+    function toggleAutoRotate() {
+      autoRotate = !autoRotate;
+      const btn = document.getElementById('btn-autorotate');
+      btn.classList.toggle('active', autoRotate);
+    }
+
+    function resetCamera() {
+      camera.position.set(0, 3.2, 7.5);
+      controls.target.set(0, 1.1, 0);
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    // ========================================================================
+    // LOOP DE ANIMACIÓN Y RENDERIZADO
+    // ========================================================================
+    function animate() {
+      requestAnimationFrame(animate);
+
+      const time = clock.getElapsedTime();
+      const delta = clock.getDelta();
+
+      // 1. Auto-rotación suave de la escena
+      if (autoRotate) {
+        scene.rotation.y = Math.sin(time * 0.25) * 0.45;
+      }
+
+      // 2. Animaciones del Perrito (Milo)
+      if (dogGroup.visible) {
+        // Respiración suave
+        dogGroup.scale.y = 1.0 + Math.sin(time * 3.5) * 0.02;
+
+        // Meneo de colita rápido y alegre
+        if (dogTail) {
+          dogTail.rotation.y = Math.sin(time * 9.5) * 0.55;
+          dogTail.rotation.z = Math.cos(time * 9.5) * 0.2;
+        }
+
+        // Inclinación tierna de la cabeza
+        if (dogHead) {
+          dogHead.rotation.z = Math.sin(time * 1.8) * 0.12;
+          dogHead.rotation.x = Math.sin(time * 2.5) * 0.06;
+        }
+
+        // Lengüita asomándose
+        if (dogTongue) {
+          dogTongue.scale.z = 1.3 + Math.sin(time * 4) * 0.2;
+        }
+
+        // Orejitas balanceándose suave
+        dogEars.forEach((ear, i) => {
+          ear.rotation.x = Math.sin(time * 3 + i) * 0.1;
+        });
+      }
+
+      // 3. Animaciones del Gatico (Luna)
+      if (catGroup.visible) {
+        // Respiración gatuna
+        catGroup.scale.y = 1.0 + Math.sin(time * 2.8) * 0.02;
+
+        // Cola felina ondeando suavemente
+        if (catTail) {
+          catTail.rotation.y = Math.sin(time * 3.2) * 0.12;
+          catTail.rotation.z = Math.cos(time * 2.0) * 0.05;
+        }
+
+        // Patitas acariciando el ovillo de lana
+        catPaws.forEach((paw, idx) => {
+          paw.rotation.x = Math.sin(time * 4.5 + idx * Math.PI) * 0.12;
+        });
+
+        // Ovillo de lana rodando levemente
+        if (catYarn) {
+          catYarn.rotation.y = time * 0.8;
+          catYarn.rotation.x = Math.sin(time * 2.0) * 0.15;
+        }
+
+        // Cabeza felina curiosa
+        if (catHead) {
+          catHead.rotation.y = Math.sin(time * 1.5) * 0.15;
+        }
+      }
+
+      // 4. Efecto de Salto / Mimo al hacer clic
+      if (isBouncing) {
+        bounceTimer += 0.08;
+        const jumpOffset = Math.sin(bounceTimer * Math.PI) * 0.38;
+
+        if (currentMode === 'dog') {
+          dogGroup.position.y = Math.max(0, jumpOffset);
+        } else if (currentMode === 'cat') {
+          catGroup.position.y = Math.max(0, jumpOffset);
+        } else {
+          dogGroup.position.y = Math.max(0, jumpOffset);
+          catGroup.position.y = Math.max(0, jumpOffset * 0.8);
+        }
+
+        if (bounceTimer >= 1.0) {
+          isBouncing = false;
+          dogGroup.position.y = 0;
+          catGroup.position.y = 0;
+        }
+      }
+
+      // 5. Flotación de Corazones y Estrellitas
+      floatingElements.forEach(item => {
+        item.mesh.position.y = item.initialY + Math.sin(time * item.speed + item.offset) * 0.18;
+        item.mesh.rotation.y += item.rotSpeed * 0.015;
+      });
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    // Inicializar al cargar el documento
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

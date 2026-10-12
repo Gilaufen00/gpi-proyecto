@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PETCARE HOME · Mockups Interactivos de la Aplicación</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Three.js nativo para modelos 3D integrados sin rotación manual -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="pet-3d-embed.js"></script>
+</head>
+<body>
+
+<div class="app-container">
+
+  <!-- ========================================================================
+       BARRA LATERAL / SIDEBAR PERSISTENTE (Playful Minimalist)
+       ======================================================================== -->
+  <aside class="sidebar">
+    <div class="brand-header">
+      <div class="brand-logo-icon">
+        <!-- SVG Huella de Mascota Logo -->
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm-6 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm12 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-7.5 4.5c0 1.93 2.07 3.5 4.5 3.5s4.5-1.57 4.5-3.5c0-1.88-2.61-4.5-4.5-4.5s-4.5 2.62-4.5 4.5z"/>
+        </svg>
+      </div>
+      <div class="brand-title-wrap">
+        <h1>PETCARE HOME</h1>
+        <span>Servicios a Domicilio</span>
+      </div>
+    </div>
+
+    <!-- Menú de Navegación entre las 5 Pantallas -->
+    <ul class="nav-menu">
+      <li class="nav-item active" data-view="pets">
+        <a class="nav-link" href="#pets">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M12 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/>
+            <path d="M6 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+            <path d="M18 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+            <path d="M7.5 17.5c0 1.93 2.07 3.5 4.5 3.5s4.5-1.57 4.5-3.5c0-1.88-2.61-4.5-4.5-4.5s-4.5 2.62-4.5 4.5z"/>
+          </svg>
+          <span>Registro de Mascotas</span>
+        </a>
+      </li>
+
+      <li class="nav-item" data-view="plans">
+        <a class="nav-link" href="#plans">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="4" width="18" height="16" rx="3" stroke-width="2"/>
+            <line x1="3" y1="10" x2="21" y2="10" stroke-width="2"/>
+            <line x1="8" y1="15" x2="16" y2="15" stroke-width="2"/>
+          </svg>
+          <span>Gestión de Planes</span>
+        </a>
+      </li>
+
+      <li class="nav-item" data-view="appointments">
+        <a class="nav-link" href="#appointments">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="4" width="18" height="18" rx="2" stroke-width="2"/>
+            <line x1="16" y1="2" x2="16" y2="6" stroke-width="2"/>
+            <line x1="8" y1="2" x2="8" y2="6" stroke-width="2"/>
+            <line x1="3" y1="10" x2="21" y2="10" stroke-width="2"/>
+          </svg>
+          <span>Agenda de Citas</span>
+        </a>
+      </li>
+
+      <li class="nav-item" data-view="treatments">
+        <a class="nav-link" href="#treatments">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M4.5 12.5l5 5 10-10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 21a9 9 0 100-18 9 9 0 000 18z" stroke-width="2"/>
+          </svg>
+          <span>Registro de Tratamientos</span>
+        </a>
+      </li>
+
+      <li class="nav-item" data-view="staff">
+        <a class="nav-link" href="#staff">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke-width="2"/>
+            <circle cx="9" cy="7" r="4" stroke-width="2"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke-width="2"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" stroke-width="2"/>
+          </svg>
+          <span>Personal Responsable</span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Footer Sidebar -->
+    <div class="sidebar-footer">
+      <div class="system-badge">
+        <span class="dot"></span>
+        <div>
+          <div>Sistema en Línea</div>
+          <small style="opacity: 0.7;">Politécnico Grancolombiano</small>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========================================================================
+       ÁREA DE CONTENIDO CENTRAL
+       ======================================================================== -->
+  <main class="main-content">
+
+    <!-- Topbar Global -->
+    <header class="topbar">
+      <div class="topbar-breadcrumbs">
+        <span>PETCARE HOME</span>
+        <span>/</span>
+        <strong id="breadcrumb-title">Registro de Mascotas</strong>
+      </div>
+
+      <div class="topbar-actions">
+        <div class="user-profile-chip">
+          <div class="user-avatar-small">JQ</div>
+          <div class="user-profile-info">
+            <div class="user-name">Dr. Joann Quintero</div>
+            <div class="user-role">Administrador General</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ======================================================================
+         PANTALLA 1: REGISTRO DE MASCOTAS
+         ====================================================================== -->
+    <section class="screen-view active" id="view-pets">
+      <div class="pet-registration-layout">
+
+        <!-- Panel Izquierdo: Fondo lila claro e ilustración central tierna -->
+        <div class="pet-reg-visual-panel">
+          <div class="visual-panel-decorations">
+            <span class="decor-sparkle d1">✦</span>
+            <span class="decor-sparkle d2">★</span>
+            <span class="decor-sparkle d3">♥</span>
+          </div>
+
+          <div class="visual-panel-header">
+            <h2>Bienvenido a PetCare Home</h2>
+            <p>Registra la información médica y personal de tu consentido para una atención a domicilio de alta calidad.</p>
+          </div>
+
+          <!-- Modelo 3D Nativo y Animado Integrado en la Pantalla Principal -->
+          <div class="visual-illustration-wrap">
+            <div class="pet-art-frame">
+              <!-- Canvas 3D Embebido Animado sin marco restrictivo -->
+              <div id="pet-3d-reg-canvas" style="width: 280px; height: 250px;"></div>
+              
+              <!-- Selector integrado para las 4 especies (Perro, Gato, Ave, Otro) -->
+              <div class="pet-species-pills-bar">
+                <button type="button" class="species-pill-btn active" id="btn-reg-dog" onclick="window.Pet3D.selectSpecies('dog')">
+                  🐕 Perro
+                </button>
+                <button type="button" class="species-pill-btn" id="btn-reg-cat" onclick="window.Pet3D.selectSpecies('cat')">
+                  🐱 Gato
+                </button>
+                <button type="button" class="species-pill-btn" id="btn-reg-bird" onclick="window.Pet3D.selectSpecies('bird')">
+                  🦜 Ave
+                </button>
+                <button type="button" class="species-pill-btn" id="btn-reg-other" onclick="window.Pet3D.selectSpecies('other')">
+                  ✨ Otro
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="visual-panel-footer">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-purple);">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            <p>Historial clínico digital protegido bajo la normativa de datos de mascotas en Colombia.</p>
+          </div>
+        </div>
+
+        <!-- Panel Derecho: Formulario Blanco -->
+        <div class="pet-reg-form-panel">
+          <div class="form-header-reg">
+            <div class="form-title-with-paw">
+              <h2>Nueva Mascota</h2>
+              <!-- Huella rosa suave -->
+              <svg class="paw-icon-pink" width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm-6 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm12 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-7.5 4.5c0 1.93 2.07 3.5 4.5 3.5s4.5-1.57 4.5-3.5c0-1.88-2.61-4.5-4.5-4.5s-4.5 2.62-4.5 4.5z"/>
+              </svg>
+            </div>
+            <span class="badge-status available">Formulario Activo</span>
+          </div>
+
+          <!-- Control circular punteado para cargar la foto (Espacio libre) -->
+          <div class="photo-uploader-wrap">
+            <div class="photo-uploader-circle" id="pet-photo-box" title="Clic para cargar foto">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <rect x="3" y="3" width="18" height="18" rx="4" stroke-width="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/>
+                <polyline points="21 15 16 10 5 21" stroke-width="2"/>
+              </svg>
+              <input type="file" id="pet-file-input" accept="image/*" style="display: none;">
+            </div>
+            <div class="photo-uploader-info">
+              <strong>Foto de la Mascota</strong>
+              <span>Área de carga clara (Espacio reservado para foto) · Clic para simular</span>
+            </div>
+          </div>
+
+          <!-- Formulario de Campos Obligatorios -->
+          <form id="pet-registration-form" onsubmit="event.preventDefault(); window.petCareApp.submitPetForm();">
+            <!-- Fila 1: Nombre y Especie -->
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label class="form-label">
+                  Nombre de la Mascota <span class="required-dot">*</span>
+                </label>
+                <input type="text" class="form-input" id="pet-name" placeholder="Ej. Milo" required value="Milo">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">
+                  Especie <span class="required-dot">*</span>
+                </label>
+                <div class="form-select-styled">
+                  <select class="form-select" id="pet-species" required>
+                    <option value="perro" selected>■ Perro</option>
+                    <option value="gato">■ Gato</option>
+                    <option value="ave">■ Ave</option>
+                    <option value="otra">■ Otra Especie</option>
+                  </select>
+                  <span class="select-arrow">▼</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fila 2: Raza a todo el ancho -->
+            <div class="form-group">
+              <label class="form-label">
+                Raza de la Mascota <span class="required-dot">*</span>
+              </label>
+              <input type="text" class="form-input" id="pet-breed" placeholder="Ej. Golden Retriever" required value="Golden Retriever">
+            </div>
+
+            <!-- Fila 3: Edad y Peso en una fila con selectores de unidad -->
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label class="form-label">
+                  Edad <span class="required-dot">*</span>
+                </label>
+                <div class="input-with-unit">
+                  <input type="number" class="form-input" id="pet-age" placeholder="2" value="2" min="1" required>
+                  <select class="unit-select" id="pet-age-unit">
+                    <option value="anios" selected>Años</option>
+                    <option value="meses">Meses</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">
+                  Peso <span class="required-dot">*</span>
+                </label>
+                <div class="input-with-unit">
+                  <input type="number" step="0.1" class="form-input" id="pet-weight" placeholder="10" value="10" min="0.5" required>
+                  <select class="unit-select" id="pet-weight-unit">
+                    <option value="kg" selected>Kg</option>
+                    <option value="lb">lb</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fila 4: Antecedentes Médicos en área de texto amplia -->
+            <div class="form-group">
+              <label class="form-label">
+                Antecedentes Médicos
+              </label>
+              <textarea class="form-textarea" id="pet-history" placeholder="Ej. Vacunas al día, Alergias...">Vacunas al día (Rabia y Polivalente al día). Sensibilidad leve a proteínas de pollo. Control antiparasitario vigente.</textarea>
+            </div>
+
+            <!-- Acciones Principales -->
+            <div class="pet-reg-actions">
+              <button type="submit" class="btn-primary-coral">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span>Registrar Mascota</span>
+              </button>
+              <a href="javascript:void(0)" class="link-cancel" onclick="window.petCareApp.resetPetForm();">Cancelar</a>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         PANTALLA 2: GESTIÓN DE PLANES DE SERVICIOS
+         ====================================================================== -->
+    <section class="screen-view" id="view-plans">
+      <div class="two-col-admin-layout">
+
+        <!-- Columna Izquierda: Lista y acciones CRUD -->
+        <div class="admin-col-left">
+          <div class="col-header-bar">
+            <div class="col-header-title">
+              <h2>Gestión de Planes de Servicios</h2>
+              <p>Administra los paquetes integrales de atención a domicilio</p>
+            </div>
+          </div>
+
+          <div class="filter-actions-row">
+            <div class="search-box">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="11" cy="11" r="8" stroke-width="2"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65" stroke-width="2"/>
+              </svg>
+              <input type="text" class="search-input" id="search-plans" placeholder="Buscar plan..." oninput="window.petCareApp.filterPlans(this.value)">
+            </div>
+            <button class="btn-primary-coral" style="white-space: nowrap; padding: 11px 20px;" onclick="window.petCareApp.createPlanModal();">
+              + Crear Plan
+            </button>
+          </div>
+
+          <!-- Lista de Tarjetas de Planes -->
+          <div class="items-list-container" id="plans-list">
+            <!-- Plan 1 (Seleccionado por defecto) -->
+            <div class="plan-card-item selected" data-plan-id="1" onclick="window.petCareApp.selectPlan(1)">
+              <div class="plan-card-header">
+                <div class="plan-name-wrap">
+                  <div class="plan-icon-symbol">🐕</div>
+                  <div>
+                    <h3 class="plan-card-name">Esencial Canino</h3>
+                    <span style="font-size: 0.75rem; color: var(--text-secondary);">Plan Médico Domiciliario</span>
+                  </div>
+                </div>
+                <span class="badge-status active">Activo</span>
+              </div>
+              <div class="plan-card-body">
+                <div class="plan-card-price">
+                  COP 95.000 <small>/ mes</small>
+                </div>
+                <div class="crud-actions" onclick="event.stopPropagation();">
+                  <button class="crud-btn" onclick="window.petCareApp.toast('Modo edición abierto para Esencial Canino');">Editar</button>
+                  <button class="crud-btn delete" onclick="window.petCareApp.toast('Acción de eliminar protegida para planes activos');">Eliminar</button>
+                  <button class="crud-btn" onclick="window.petCareApp.selectPlan(1)">Ver</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Plan 2 -->
+            <div class="plan-card-item" data-plan-id="2" onclick="window.petCareApp.selectPlan(2)">
+              <div class="plan-card-header">
+                <div class="plan-name-wrap">
+                  <div class="plan-icon-symbol">🐱</div>
+                  <div>
+                    <h3 class="plan-card-name">Bienestar Felino</h3>
+                    <span style="font-size: 0.75rem; color: var(--text-secondary);">Salud y Estética Especializada</span>
+                  </div>
+                </div>
+                <span class="badge-status active">Activo</span>
+              </div>
+              <div class="plan-card-body">
+                <div class="plan-card-price">
+                  COP 85.000 <small>/ mes</small>
+                </div>
+                <div class="crud-actions" onclick="event.stopPropagation();">
+                  <button class="crud-btn" onclick="window.petCareApp.toast('Modo edición abierto para Bienestar Felino');">Editar</button>
+                  <button class="crud-btn delete" onclick="window.petCareApp.toast('Acción de eliminar protegida');">Eliminar</button>
+                  <button class="crud-btn" onclick="window.petCareApp.selectPlan(2)">Ver</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Plan 3 -->
+            <div class="plan-card-item" data-plan-id="3" onclick="window.petCareApp.selectPlan(3)">
+              <div class="plan-card-header">
+                <div class="plan-name-wrap">
+                  <div class="plan-icon-symbol">👑</div>
+                  <div>
+                    <h3 class="plan-card-name">Total Care VIP</h3>
+                    <span style="font-size: 0.75rem; color: var(--text-secondary);">Atención Integral Ilimitada</span>
+                  </div>
+                </div>
+                <span class="badge-status active">Activo</span>
+              </div>
+              <div class="plan-card-body">
+                <div class="plan-card-price">
+                  COP 145.000 <small>/ mes</small>
+                </div>
+                <div class="crud-actions" onclick="event.stopPropagation();">
+                  <button class="crud-btn" onclick="window.petCareApp.toast('Modo edición para Total Care VIP');">Editar</button>
+                  <button class="crud-btn delete" onclick="window.petCareApp.toast('Acción de eliminar protegida');">Eliminar</button>
+                  <button class="crud-btn" onclick="window.petCareApp.selectPlan(3)">Ver</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Detalle del Plan -->
+        <div class="admin-col-right">
+          <div class="detail-card-large" id="plan-detail-view">
+            <h3 class="detail-plan-title" id="detail-plan-name">Esencial Canino</h3>
+
+            <!-- Modelo 3D Nativo y Animado Integrado (Cambia entre Milo y Luna según el Plan) -->
+            <div class="detail-plan-illustration" id="detail-plan-img-wrap" style="height: auto; padding: 6px 0; display: flex; flex-direction: column; align-items: center;">
+              <div id="pet-3d-plan-canvas" style="width: 240px; height: 180px; border-radius: 20px; overflow: hidden;"></div>
+            </div>
+
+            <!-- Destacar precio -->
+            <div class="detail-price-highlight" id="detail-plan-price">COP 95.000 / mes</div>
+
+            <!-- Badges Estado y Mascotas Inscritas -->
+            <div class="detail-badges-row">
+              <span class="badge-status active" id="detail-plan-status">Estado: Activo</span>
+              <span class="badge-inscribed" id="detail-plan-inscribed">Mascotas Inscritas: 15</span>
+            </div>
+
+            <!-- Sección Servicios Incluidos en 2 columnas con checks verdes -->
+            <div class="services-included-box">
+              <h4>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M9 11l3 3L22 4"/>
+                  <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                </svg>
+                Servicios incluidos en el plan
+              </h4>
+              <div class="services-2col-grid" id="detail-plan-services">
+                <div class="service-check-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>Consulta General (2/año)</span>
+                </div>
+                <div class="service-check-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>Vacunación Anual</span>
+                </div>
+                <div class="service-check-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>Limpieza Dental (1/año)</span>
+                </div>
+                <div class="service-check-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>Baño / Corte (1/mes)</span>
+                </div>
+                <div class="service-check-item" style="grid-column: span 2;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>Desparasitación Interna y Externa</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botón coral inferior -->
+            <div class="detail-action-footer">
+              <button class="btn-primary-coral" onclick="window.petCareApp.toast('Formulario para Modificar Plan cargado con éxito');">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M12 20h9"/>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                </svg>
+                <span>Modificar Plan</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         PANTALLA 3: AGENDA DE CITAS Y VISITAS A DOMICILIO
+         ====================================================================== -->
+    <section class="screen-view" id="view-appointments">
+      <!-- Cabecera con selector de vistas tipo cápsula -->
+      <div class="agenda-header-wrapper">
+        <div>
+          <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--text-dark);">Agenda de Citas y Visitas a Domicilio</h2>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">Consulta el calendario, revisa citas y gestiona la logística operativa</p>
+        </div>
+
+        <!-- Selector de vistas tipo cápsula -->
+        <div class="view-capsule-selector">
+          <button class="capsule-btn active" data-capsule="calendar" onclick="window.petCareApp.setCapsule(this, 'Calendario')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            Calendario
+          </button>
+          <button class="capsule-btn" data-capsule="list" onclick="window.petCareApp.setCapsule(this, 'Lista')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="8" y1="6" x2="21" y2="6"/>
+              <line x1="8" y1="12" x2="21" y2="12"/>
+              <line x1="8" y1="18" x2="21" y2="18"/>
+              <line x1="3" y1="6" x2="3.01" y2="6"/>
+              <line x1="3" y1="12" x2="3.01" y2="12"/>
+              <line x1="3" y1="18" x2="3.01" y2="18"/>
+            </svg>
+            Lista
+          </button>
+          <button class="capsule-btn" data-capsule="map" onclick="window.petCareApp.setCapsule(this, 'Mapa')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+              <line x1="8" y1="2" x2="8" y2="18"/>
+              <line x1="16" y1="6" x2="16" y2="22"/>
+            </svg>
+            Mapa
+          </button>
+        </div>
+      </div>
+
+      <!-- ==================================================================
+           SUB-VISTA 1: CALENDARIO INTERACTIVO (MENSUAL + VISITAS DEL DÍA)
+           ================================================================== -->
+      <div class="agenda-subview active" id="agenda-subview-calendar">
+        <div class="two-col-admin-layout">
+
+        <!-- Columna Izquierda: Minicalendarios + Lista de Citas -->
+        <div class="admin-col-left">
+
+          <!-- Dos minicalendarios mensuales -->
+          <div class="mini-calendars-container">
+            <!-- Calendario Octubre 2026 -->
+            <div class="mini-calendar-card">
+              <div class="calendar-month-header">
+                <h5>Octubre 2026</h5>
+                <div>
+                  <button class="cal-nav-btn">‹</button>
+                  <button class="cal-nav-btn">›</button>
+                </div>
+              </div>
+              <div class="calendar-days-grid">
+                <span class="cal-day-label">L</span>
+                <span class="cal-day-label">M</span>
+                <span class="cal-day-label">M</span>
+                <span class="cal-day-label">J</span>
+                <span class="cal-day-label">V</span>
+                <span class="cal-day-label">S</span>
+                <span class="cal-day-label">D</span>
+
+                <!-- Días Octubre -->
+                <span class="cal-day-cell other-month">28</span>
+                <span class="cal-day-cell other-month">29</span>
+                <span class="cal-day-cell other-month">30</span>
+                <span class="cal-day-cell" data-date="2026-10-01" data-display="1 de Octubre, 2026">1</span>
+                <span class="cal-day-cell" data-date="2026-10-02" data-display="2 de Octubre, 2026">2</span>
+                <span class="cal-day-cell" data-date="2026-10-03" data-display="3 de Octubre, 2026">3</span>
+                <span class="cal-day-cell" data-date="2026-10-04" data-display="4 de Octubre, 2026">4</span>
+
+                <span class="cal-day-cell" data-date="2026-10-05" data-display="5 de Octubre, 2026">5</span>
+                <span class="cal-day-cell" data-date="2026-10-06" data-display="6 de Octubre, 2026">6</span>
+                <span class="cal-day-cell" data-date="2026-10-07" data-display="7 de Octubre, 2026">7</span>
+                <span class="cal-day-cell" data-date="2026-10-08" data-display="8 de Octubre, 2026">8</span>
+                <span class="cal-day-cell" data-date="2026-10-09" data-display="9 de Octubre, 2026">9</span>
+                <span class="cal-day-cell" data-date="2026-10-10" data-display="10 de Octubre, 2026">10</span>
+                <span class="cal-day-cell active-day has-dot" data-date="2026-10-11" data-display="11 de Octubre, 2026" title="Hoy · 3 Visitas">11</span>
+
+                <span class="cal-day-cell" data-date="2026-10-12" data-display="12 de Octubre, 2026">12</span>
+                <span class="cal-day-cell" data-date="2026-10-13" data-display="13 de Octubre, 2026">13</span>
+                <span class="cal-day-cell has-dot" data-date="2026-10-14" data-display="14 de Octubre, 2026" title="2 Visitas Programadas">14</span>
+                <span class="cal-day-cell" data-date="2026-10-15" data-display="15 de Octubre, 2026">15</span>
+                <span class="cal-day-cell has-dot" data-date="2026-10-16" data-display="16 de Octubre, 2026" title="2 Visitas Programadas">16</span>
+                <span class="cal-day-cell" data-date="2026-10-17" data-display="17 de Octubre, 2026">17</span>
+                <span class="cal-day-cell" data-date="2026-10-18" data-display="18 de Octubre, 2026">18</span>
+
+                <span class="cal-day-cell" data-date="2026-10-19" data-display="19 de Octubre, 2026">19</span>
+                <span class="cal-day-cell" data-date="2026-10-20" data-display="20 de Octubre, 2026">20</span>
+                <span class="cal-day-cell" data-date="2026-10-21" data-display="21 de Octubre, 2026">21</span>
+                <span class="cal-day-cell" data-date="2026-10-22" data-display="22 de Octubre, 2026">22</span>
+                <span class="cal-day-cell" data-date="2026-10-23" data-display="23 de Octubre, 2026">23</span>
+                <span class="cal-day-cell" data-date="2026-10-24" data-display="24 de Octubre, 2026">24</span>
+                <span class="cal-day-cell" data-date="2026-10-25" data-display="25 de Octubre, 2026">25</span>
+
+                <span class="cal-day-cell has-dot" data-date="2026-10-26" data-display="26 de Octubre, 2026" title="2 Visitas Programadas">26</span>
+                <span class="cal-day-cell" data-date="2026-10-27" data-display="27 de Octubre, 2026">27</span>
+                <span class="cal-day-cell" data-date="2026-10-28" data-display="28 de Octubre, 2026">28</span>
+                <span class="cal-day-cell" data-date="2026-10-29" data-display="29 de Octubre, 2026">29</span>
+                <span class="cal-day-cell" data-date="2026-10-30" data-display="30 de Octubre, 2026">30</span>
+                <span class="cal-day-cell" data-date="2026-10-31" data-display="31 de Octubre, 2026">31</span>
+                <span class="cal-day-cell other-month">1</span>
+              </div>
+            </div>
+
+            <!-- Calendario Noviembre 2026 -->
+            <div class="mini-calendar-card">
+              <div class="calendar-month-header">
+                <h5>Noviembre 2026</h5>
+                <div>
+                  <button class="cal-nav-btn">‹</button>
+                  <button class="cal-nav-btn">›</button>
+                </div>
+              </div>
+              <div class="calendar-days-grid">
+                <span class="cal-day-label">L</span>
+                <span class="cal-day-label">M</span>
+                <span class="cal-day-label">M</span>
+                <span class="cal-day-label">J</span>
+                <span class="cal-day-label">V</span>
+                <span class="cal-day-label">S</span>
+                <span class="cal-day-label">D</span>
+
+                <span class="cal-day-cell other-month">26</span>
+                <span class="cal-day-cell other-month">27</span>
+                <span class="cal-day-cell other-month">28</span>
+                <span class="cal-day-cell other-month">29</span>
+                <span class="cal-day-cell other-month">30</span>
+                <span class="cal-day-cell other-month">31</span>
+                <span class="cal-day-cell" data-date="2026-11-01" data-display="1 de Noviembre, 2026">1</span>
+
+                <span class="cal-day-cell" data-date="2026-11-02" data-display="2 de Noviembre, 2026">2</span>
+                <span class="cal-day-cell" data-date="2026-11-03" data-display="3 de Noviembre, 2026">3</span>
+                <span class="cal-day-cell" data-date="2026-11-04" data-display="4 de Noviembre, 2026">4</span>
+                <span class="cal-day-cell" data-date="2026-11-05" data-display="5 de Noviembre, 2026">5</span>
+                <span class="cal-day-cell" data-date="2026-11-06" data-display="6 de Noviembre, 2026">6</span>
+                <span class="cal-day-cell" data-date="2026-11-07" data-display="7 de Noviembre, 2026">7</span>
+                <span class="cal-day-cell" data-date="2026-11-08" data-display="8 de Noviembre, 2026">8</span>
+
+                <span class="cal-day-cell has-dot" data-date="2026-11-09" data-display="9 de Noviembre, 2026" title="2 Visitas Programadas">9</span>
+                <span class="cal-day-cell" data-date="2026-11-10" data-display="10 de Noviembre, 2026">10</span>
+                <span class="cal-day-cell" data-date="2026-11-11" data-display="11 de Noviembre, 2026">11</span>
+                <span class="cal-day-cell" data-date="2026-11-12" data-display="12 de Noviembre, 2026">12</span>
+                <span class="cal-day-cell" data-date="2026-11-13" data-display="13 de Noviembre, 2026">13</span>
+                <span class="cal-day-cell" data-date="2026-11-14" data-display="14 de Noviembre, 2026">14</span>
+                <span class="cal-day-cell" data-date="2026-11-15" data-display="15 de Noviembre, 2026">15</span>
+
+                <span class="cal-day-cell" data-date="2026-11-16" data-display="16 de Noviembre, 2026">16</span>
+                <span class="cal-day-cell" data-date="2026-11-17" data-display="17 de Noviembre, 2026">17</span>
+                <span class="cal-day-cell" data-date="2026-11-18" data-display="18 de Noviembre, 2026">18</span>
+                <span class="cal-day-cell" data-date="2026-11-19" data-display="19 de Noviembre, 2026">19</span>
+                <span class="cal-day-cell" data-date="2026-11-20" data-display="20 de Noviembre, 2026">20</span>
+                <span class="cal-day-cell" data-date="2026-11-21" data-display="21 de Noviembre, 2026">21</span>
+                <span class="cal-day-cell" data-date="2026-11-22" data-display="22 de Noviembre, 2026">22</span>
+
+                <span class="cal-day-cell" data-date="2026-11-23" data-display="23 de Noviembre, 2026">23</span>
+                <span class="cal-day-cell" data-date="2026-11-24" data-display="24 de Noviembre, 2026">24</span>
+                <span class="cal-day-cell" data-date="2026-11-25" data-display="25 de Noviembre, 2026">25</span>
+                <span class="cal-day-cell" data-date="2026-11-26" data-display="26 de Noviembre, 2026">26</span>
+                <span class="cal-day-cell" data-date="2026-11-27" data-display="27 de Noviembre, 2026">27</span>
+                <span class="cal-day-cell" data-date="2026-11-28" data-display="28 de Noviembre, 2026">28</span>
+                <span class="cal-day-cell" data-date="2026-11-29" data-display="29 de Noviembre, 2026">29</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rótulo de Fecha -->
+          <div class="date-section-header">
+            <h3>
+              <span id="date-section-label">Visitas para Hoy</span>
+              <span class="date-pill-indicator" id="date-selected-indicator">11 de Octubre, 2026</span>
+            </h3>
+            <span style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;" id="date-appointments-count">3 Visitas Programadas</span>
+          </div>
+
+          <!-- Listado de Tarjetas de Cita -->
+          <div class="items-list-container" id="appointments-list">
+            <!-- Cita #1024 (Seleccionada) -->
+            <div class="appointment-card selected" data-appt-id="1024" onclick="window.petCareApp.selectAppt(1024)">
+              <div class="appt-card-top">
+                <div class="appt-id-pet">
+                  <span class="appt-id">#1024</span>
+                  <span class="appt-pet-name">Max</span>
+                  <span style="font-size: 0.75rem; color: var(--text-secondary);">(Canino)</span>
+                </div>
+                <!-- Estado Verde Pastel -->
+                <span class="badge-status confirmed">Confirmada</span>
+              </div>
+              <div class="appt-card-mid">
+                <div class="appt-time-slot">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                  <span>09:00 AM - 10:15 AM</span>
+                </div>
+                <span>·</span>
+                <span>Consulta Médica General</span>
+              </div>
+              <div class="appt-card-bottom">
+                <span style="font-size: 0.75rem; color: var(--text-secondary);">Resp: Dr. Carlos Méndez</span>
+                <div class="crud-actions" onclick="event.stopPropagation();">
+                  <button class="crud-btn" onclick="window.petCareApp.toast('Modificar horario de Cita #1024');">Editar</button>
+                  <button class="crud-btn delete" onclick="window.petCareApp.toast('Cancelar solicitud #1024');">Cancelar</button>
+                  <button class="crud-btn" onclick="window.petCareApp.openClinicalDossierModal(1024)" style="background-color: var(--primary-purple-subtle); color: var(--primary-purple); font-weight: 700;">Ver Ficha</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cita #1025 -->
+            <div class="appointment-card" data-appt-id="1025" onclick="window.petCareApp.selectAppt(1025)">
+              <div class="appt-card-top">
+                <div class="appt-id-pet">
+                  <span class="appt-id">#1025</span>
+                  <span class="appt-pet-name">Luna</span>
+                  <span style="font-size: 0.75rem; color: var(--text-secondary);">(Felino)</span>
+                </div>
+                <!-- Estado Azul Pastel -->
+                <span class="badge-status on-way">En Camino</span>
+              </div>
+              <div class="appt-card-mid">
+                <div class="appt-time-slot">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                  <span>11:30 AM - 12:45 PM</span>
+                </div>
+                <span>·</span>
+                <span>Vacunación y Desparasitación</span>
+              </div>
+              <div class="appt-card-bottom">
+                <span style="font-size: 0.75rem; color: var(--text-secondary);">Resp: Dra. Diana Gómez</span>
+                <div class="crud-actions" onclick="event.stopPropagation();">
+                  <button class="crud-btn" onclick="window.petCareApp.toast('Modificar horario de Cita #1025');">Editar</button>
+                  <button class="crud-btn delete" onclick="window.petCareApp.toast('Cancelar cita #1025');">Cancelar</button>
+                  <button class="crud-btn" onclick="window.petCareApp.openClinicalDossierModal(1025)" style="background-color: var(--primary-purple-subtle); color: var(--primary-purple); font-weight: 700;">Ver Ficha</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cita #1026 -->
+            <div class="appointment-card" data-appt-id="1026" onclick="window.petCareApp.selectAppt(1026)">
+              <div class="appt-card-top">
+                <div class="appt-id-pet">
+                  <span class="appt-id">#1026</span>
+                  <span class="appt-pet-name">Toby</span>
+                  <span style="font-size: 0.75rem; color: var(--text-secondary);">(Canino)</span>
+                </div>
+                <!-- Estado Rosa Pastel -->
+                <span class="badge-status canceled">Cancelada</span>
+              </div>
+              <div class="appt-card-mid">
+                <div class="appt-time-slot">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                  <span>02:30 PM - 03:30 PM</span>
+                </div>
+                <span>·</span>
+                <span>Baño Spa y Profilaxis</span>
+              </div>
+              <div class="appt-card-bottom">
+                <span style="font-size: 0.75rem; color: var(--text-secondary);">Resp: Andrés Silva</span>
+                <div class="crud-actions" onclick="event.stopPropagation();">
+                  <button class="crud-btn" onclick="window.petCareApp.toast('Cita cancelada previamente');">Editar</button>
+                  <button class="crud-btn delete" onclick="window.petCareApp.toast('Registro archivado');">Cancelar</button>
+                  <button class="crud-btn" onclick="window.petCareApp.openClinicalDossierModal(1026)" style="background-color: var(--primary-purple-subtle); color: var(--primary-purple); font-weight: 700;">Ver Ficha</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Columna Derecha: Panel de Detalle Ampliado de la Cita -->
+        <div class="admin-col-right">
+          <div class="appointment-detail-panel" id="appt-detail-box">
+
+            <div class="appt-detail-header">
+              <div class="appt-detail-title-group">
+                <h3 id="appt-det-title">Cita #1024 - Max</h3>
+                <span>Ficha Operativa de Visita a Domicilio</span>
+              </div>
+              <!-- Avatar 3D Nativo y Animado de la Mascota de la Visita -->
+              <div id="pet-3d-appt-avatar" style="width: 62px; height: 62px; border-radius: 18px; overflow: hidden; background: #FAF9FE; border: 1.5px solid var(--border-subtle); flex-shrink: 0; box-shadow: var(--shadow-sm);" title="Avatar 3D en vivo de la mascota"></div>
+            </div>
+
+            <!-- Grilla con datos de Servicio, Fecha, Hora, Dirección y Responsable -->
+            <div class="appt-info-grid">
+              <div class="appt-info-item">
+                <div class="info-icon-bubble">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                  </svg>
+                </div>
+                <div class="info-text-group">
+                  <label>Servicio Requerido</label>
+                  <p id="appt-det-service">Consulta Médica General a Domicilio</p>
+                </div>
+              </div>
+
+              <div class="appt-info-item">
+                <div class="info-icon-bubble">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
+                </div>
+                <div class="info-text-group">
+                  <label>Fecha y Horario</label>
+                  <p id="appt-det-datetime">11 de Octubre, 2026 · 09:00 AM - 10:15 AM</p>
+                </div>
+              </div>
+
+              <div class="appt-info-item">
+                <div class="info-icon-bubble">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <div class="info-text-group">
+                  <label>Dirección de Atención (Bogotá)</label>
+                  <p id="appt-det-address">Calle 127 # 15 - 42, Apto 502, Usaquén</p>
+                </div>
+              </div>
+
+              <div class="appt-info-item">
+                <div class="info-icon-bubble">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                </div>
+                <div class="info-text-group">
+                  <label>Personal Responsable</label>
+                  <p id="appt-det-staff">Dr. Carlos Méndez (Médico Veterinario Titular)</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Badges Estado y Plan Asociado -->
+            <div class="appt-badges-section">
+              <span class="badge-status confirmed" id="appt-det-badge-status">Estado: Confirmada</span>
+              <span class="badge-context" id="appt-det-badge-plan">Plan: Esencial Canino</span>
+              <span class="badge-context" style="background: #FFF; border-color: #E2E8F0; color: #4A5568;">Tutor: Juan Pérez (CC. 1018****)</span>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="appt-actions-bar">
+              <button class="btn-primary-coral" onclick="window.petCareApp.toast('Formulario para Modificar Cita abierto');">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="14 2 18 6 7 17 3 17 3 13 14 2"/>
+                </svg>
+                <span>Modificar Cita</span>
+              </button>
+
+              <button class="btn-secondary-white" id="btn-view-dossier-current" onclick="window.petCareApp.openCurrentApptDossier();" title="Ver ficha clínica y operativa de la visita" style="border-color: var(--primary-purple); color: var(--primary-purple); font-weight: 700;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                </svg>
+                <span>Ver Ficha de Visita</span>
+              </button>
+
+              <button class="btn-secondary-white" onclick="window.petCareApp.goToRegisterTreatment(1024);" title="Ir a la pantalla de Registro de Tratamiento">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--primary-purple);">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span>Registrar Tratamiento</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      </div>
+
+      <!-- ==================================================================
+           SUB-VISTA 2: LISTA GENERAL DE CITAS Y VISITAS
+           ================================================================== -->
+      <div class="agenda-subview" id="agenda-subview-list">
+        <div class="agenda-list-card">
+          <div class="list-filters-toolbar">
+            <div class="status-pills-filter">
+              <button class="filter-pill-btn active" data-status="all" onclick="window.petCareApp.filterAppointmentsListByStatus('all', this)">
+                Todas (11)
+              </button>
+              <button class="filter-pill-btn" data-status="confirmed" onclick="window.petCareApp.filterAppointmentsListByStatus('confirmed', this)">
+                Confirmadas (8)
+              </button>
+              <button class="filter-pill-btn" data-status="on-way" onclick="window.petCareApp.filterAppointmentsListByStatus('on-way', this)">
+                En Camino (2)
+              </button>
+              <button class="filter-pill-btn" data-status="canceled" onclick="window.petCareApp.filterAppointmentsListByStatus('canceled', this)">
+                Canceladas (1)
+              </button>
+            </div>
+            <div class="search-box" style="max-width: 320px;">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="11" cy="11" r="8" stroke-width="2"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65" stroke-width="2"/>
+              </svg>
+              <input type="text" class="search-input" id="search-agenda-list" placeholder="Buscar por mascota, tutor o doctor..." oninput="window.petCareApp.filterAppointmentsListByQuery(this.value)">
+            </div>
+          </div>
+
+          <div class="table-responsive-box">
+            <table class="treatment-table" id="table-agenda-list">
+              <thead>
+                <tr>
+                  <th>Cita / Mascota</th>
+                  <th>Especie</th>
+                  <th>Tutor y Dirección</th>
+                  <th>Fecha y Horario</th>
+                  <th>Servicio Requerido</th>
+                  <th>Profesional</th>
+                  <th>Estado</th>
+                  <th style="text-align: right;">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="agenda-list-tbody">
+                <!-- Se poblará dinámicamente con las 11 citas -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================================
+           SUB-VISTA 3: MAPA LOGÍSTICO Y RUTAS EN BOGOTÁ
+           ================================================================== -->
+      <div class="agenda-subview" id="agenda-subview-map">
+        <div class="agenda-map-layout">
+
+          <!-- Columna Izquierda: Panel de Control de Rutas -->
+          <div class="routes-control-panel">
+            <div style="margin-bottom: 20px;">
+              <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--text-dark); margin-bottom: 4px;">Rutas Operativas Domiciliarias</h3>
+              <p style="font-size: 0.82rem; color: var(--text-secondary);">Bogotá D.C. · Cobertura Norte & Noroccidente</p>
+            </div>
+
+            <!-- Selector de Rutas -->
+            <div class="route-selector-card active" data-route="1" onclick="window.petCareApp.selectRoute(1, this)">
+              <div class="route-header-flex">
+                <h4>Ruta 1 · Usaquén - Sta. Bárbara</h4>
+                <span class="badge-status confirmed" style="font-size: 0.72rem; padding: 2px 10px;">En Ruta</span>
+              </div>
+              <div class="route-details-meta">
+                <span>👤 Dr. Carlos Méndez</span>
+                <span>📍 3 Visitas (#1024, #1027, #1028)</span>
+              </div>
+              <div style="margin-top: 8px; font-size: 0.76rem; color: var(--primary-purple); font-weight: 600;">
+                Calle 127 ➔ Cra 15 ➔ Calle 134
+              </div>
+            </div>
+
+            <div class="route-selector-card" data-route="2" onclick="window.petCareApp.selectRoute(2, this)">
+              <div class="route-header-flex">
+                <h4>Ruta 2 · Chicó & Santa Bárbara</h4>
+                <span class="badge-status on-way" style="font-size: 0.72rem; padding: 2px 10px;">En Camino</span>
+              </div>
+              <div class="route-details-meta">
+                <span>👤 Dra. Diana Gómez</span>
+                <span>📍 2 Visitas (#1025, #1029)</span>
+              </div>
+              <div style="margin-top: 8px; font-size: 0.76rem; color: var(--primary-purple); font-weight: 600;">
+                Cra 7 # 116 ➔ Cra 19 # 104
+              </div>
+            </div>
+
+            <div class="route-selector-card" data-route="3" onclick="window.petCareApp.selectRoute(3, this)">
+              <div class="route-header-flex">
+                <h4>Ruta 3 · Suba & Pontevedra</h4>
+                <span class="badge-status" style="background:#F3F4F6; color:#4B5563; border-color:#E5E7EB; font-size: 0.72rem; padding: 2px 10px;">Programada</span>
+              </div>
+              <div class="route-details-meta">
+                <span>👤 Andrés Silva</span>
+                <span>📍 2 Visitas (#1026, #1032)</span>
+              </div>
+              <div style="margin-top: 8px; font-size: 0.76rem; color: var(--primary-purple); font-weight: 600;">
+                Av Suba # 128A ➔ Calle 118
+              </div>
+            </div>
+
+            <!-- Métricas operativas logísticas Soft UI -->
+            <div style="margin-top: auto; padding-top: 20px; border-top: 1px dashed var(--border-subtle); display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div style="background: #FAF9FE; padding: 12px 14px; border-radius: 14px; text-align: center; border: 1px solid var(--border-subtle);">
+                <div style="font-size: 1.2rem; font-weight: 800; color: var(--primary-purple);">25 min</div>
+                <div style="font-size: 0.73rem; color: var(--text-secondary); margin-top: 2px;">Desplazamiento Prom.</div>
+              </div>
+              <div style="background: #FAF9FE; padding: 12px 14px; border-radius: 14px; text-align: center; border: 1px solid var(--border-subtle);">
+                <div style="font-size: 1.2rem; font-weight: 800; color: #10B981;">98.4%</div>
+                <div style="font-size: 0.73rem; color: var(--text-secondary); margin-top: 2px;">Puntualidad en Casa</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna Derecha: Lienzo del Mapa Visual Soft UI -->
+          <div class="map-visual-board">
+            <div class="map-header-bar">
+              <div>
+                <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-dark);">Monitoreo Logístico en Tiempo Real · Bogotá D.C.</h3>
+                <span style="font-size: 0.78rem; color: var(--text-secondary);">Haz clic en los pines para consultar el detalle de cada visita domiciliaria</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 6px; background: #DCFCE7; color: #15803D; padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; border: 1px solid #BBF7D0;">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: #16A34A; display: inline-block;"></span>
+                GPS Activo
+              </div>
+            </div>
+
+            <div class="map-canvas-area" id="map-canvas">
+              <!-- Cuadrícula y vías principales de Bogotá -->
+              <div class="map-grid-streets">
+                <div class="map-street avenue-norte" title="Autopista Norte"></div>
+                <div class="map-street cra-7" title="Carrera 7"></div>
+                <div class="map-street calle-127" title="Calle 127"></div>
+                <div class="map-street calle-100" title="Calle 100"></div>
+                <div class="map-street av-suba" title="Avenida Suba"></div>
+              </div>
+
+              <!-- Rótulos de Localidades / Zonas -->
+              <div class="map-label-zone" style="top: 14%; right: 18%;">USAQUÉN</div>
+              <div class="map-label-zone" style="top: 48%; right: 20%;">STA. BÁRBARA</div>
+              <div class="map-label-zone" style="top: 76%; right: 16%;">CHICÓ</div>
+              <div class="map-label-zone" style="top: 22%; left: 12%;">SUBA</div>
+
+              <!-- Pines Interactivos -->
+              <!-- Pin #1024 (Calle 127 - Usaquén - Max) -->
+              <div class="map-pin-point" id="map-pin-1024" style="top: 36%; left: 45%;" onclick="window.petCareApp.selectMapPin(1024)" title="Cita #1024 - Max (Usaquén)">
+                <div class="pin-bubble confirmed">
+                  <span>🐕</span>
+                  <span>#1024 Max</span>
+                </div>
+              </div>
+
+              <!-- Pin #1025 (Cra 7 - Santa Bárbara - Luna) -->
+              <div class="map-pin-point" id="map-pin-1025" style="top: 52%; left: 68%;" onclick="window.petCareApp.selectMapPin(1025)" title="Cita #1025 - Luna (Santa Bárbara)">
+                <div class="pin-bubble on-way">
+                  <span>🐱</span>
+                  <span>#1025 Luna · En Camino</span>
+                </div>
+              </div>
+
+              <!-- Pin #1026 (Av Suba - Toby) -->
+              <div class="map-pin-point" id="map-pin-1026" style="top: 22%; left: 22%;" onclick="window.petCareApp.selectMapPin(1026)" title="Cita #1026 - Toby (Suba)">
+                <div class="pin-bubble canceled">
+                  <span>🐕</span>
+                  <span>#1026 Toby</span>
+                </div>
+              </div>
+
+              <!-- Pin #1027 (Cra 15 - Rocky) -->
+              <div class="map-pin-point" id="map-pin-1027" style="top: 42%; left: 52%;" onclick="window.petCareApp.selectMapPin(1027)" title="Cita #1027 - Rocky (Calle 124)">
+                <div class="pin-bubble confirmed">
+                  <span>🐕</span>
+                  <span>#1027 Rocky</span>
+                </div>
+              </div>
+
+              <!-- Pin #1028 (Calle 134 - Milo) -->
+              <div class="map-pin-point" id="map-pin-1028" style="top: 18%; left: 44%;" onclick="window.petCareApp.selectMapPin(1028)" title="Cita #1028 - Milo (Calle 134)">
+                <div class="pin-bubble confirmed">
+                  <span>🐕</span>
+                  <span>#1028 Milo</span>
+                </div>
+              </div>
+
+              <!-- Pin #1029 (Cra 19 - Simba) -->
+              <div class="map-pin-point" id="map-pin-1029" style="top: 65%; left: 48%;" onclick="window.petCareApp.selectMapPin(1029)" title="Cita #1029 - Simba (Cra 19)">
+                <div class="pin-bubble confirmed">
+                  <span>🐱</span>
+                  <span>#1029 Simba</span>
+                </div>
+              </div>
+
+              <!-- Tarjeta Flotante Informativa del Pin Seleccionado -->
+              <div class="map-info-popup" id="map-info-popup">
+                <div style="display: flex; align-items: center; gap: 14px;">
+                  <div style="width: 44px; height: 44px; border-radius: 12px; background: #FAF9FE; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; border: 1px solid var(--border-subtle);" id="map-popup-icon">
+                    🐕
+                  </div>
+                  <div>
+                    <h4 style="font-weight: 800; font-size: 0.95rem; color: var(--text-dark); margin-bottom: 2px;" id="map-popup-title">Cita #1024 · Max (Canino)</h4>
+                    <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 2px;" id="map-popup-service">Consulta Médica General a Domicilio · Juan Pérez</p>
+                    <div style="font-size: 0.74rem; color: var(--primary-purple); font-weight: 600;" id="map-popup-address">Calle 127 # 15 - 42, Apto 502, Usaquén · Dr. Carlos Méndez</div>
+                  </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span class="badge-status confirmed" id="map-popup-badge">Confirmada</span>
+                  <button class="btn-primary-coral" id="map-popup-btn" onclick="window.petCareApp.openClinicalDossierModal(1024);" style="padding: 8px 16px; font-size: 0.8rem;">
+                    Ver Ficha
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         PANTALLA 4: GESTIÓN DE TRATAMIENTOS (PANTALLA BASE CLÍNICA)
+         ====================================================================== -->
+    <section class="screen-view" id="view-treatments">
+      <div class="treatment-history-table-card">
+        <div class="col-header-bar">
+          <div class="col-header-title">
+            <h2>Historial Clínico y Gestión de Tratamientos</h2>
+            <p>Registro ordenado de procedimientos aplicados durante visitas a domicilio</p>
+          </div>
+          <button class="btn-primary-coral" onclick="window.petCareApp.openTreatmentModal(1024, 'Max', 'Juan Pérez', 'Consulta Médica');">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            <span>+ Nuevo Registro de Tratamiento</span>
+          </button>
+        </div>
+
+        <!-- Tabla de Tratamientos Registrados -->
+        <table class="treatment-table">
+          <thead>
+            <tr>
+              <th>Cita #</th>
+              <th>Mascota</th>
+              <th>Tutor / Dueño</th>
+              <th>Procedimiento Realizado</th>
+              <th>Próximo Control</th>
+              <th>Veterinario</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#1024</td>
+              <td><strong>Max</strong> (Golden)</td>
+              <td>Juan Pérez</td>
+              <td>Desparasitación interna y revisión general ótica</td>
+              <td><span class="badge-status in-progress">26 de Octubre</span></td>
+              <td>Dr. Carlos Méndez</td>
+              <td>
+                <div class="crud-actions">
+                  <button class="crud-btn" onclick="window.petCareApp.openTreatmentModal(1024, 'Max', 'Juan Pérez', 'Consulta Médica');">Editar</button>
+                  <button class="crud-btn" onclick="window.petCareApp.openClinicalDossierModal(1024);" style="background-color: var(--primary-purple-subtle); color: var(--primary-purple); font-weight: 700;">Ver Ficha</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>#1021</td>
+              <td><strong>Luna</strong> (Siamés)</td>
+              <td>María Camila Gómez</td>
+              <td>Vacuna Triple Felina y profilaxis preventiva</td>
+              <td><span class="badge-status available">Completado</span></td>
+              <td>Dra. Diana Gómez</td>
+              <td>
+                <div class="crud-actions">
+                  <button class="crud-btn" onclick="window.petCareApp.openTreatmentModal(1021, 'Luna', 'María Camila Gómez', 'Vacunación');">Editar</button>
+                  <button class="crud-btn" onclick="window.petCareApp.openClinicalDossierModal(1021);" style="background-color: var(--primary-purple-subtle); color: var(--primary-purple); font-weight: 700;">Ver Ficha</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>#1019</td>
+              <td><strong>Rocky</strong> (Bulldog)</td>
+              <td>Esteban Martínez</td>
+              <td>Corte de uñas, limpieza de pliegues y desensibilización</td>
+              <td><span class="badge-status in-progress">15 de Noviembre</span></td>
+              <td>Andrés Silva</td>
+              <td>
+                <div class="crud-actions">
+                  <button class="crud-btn" onclick="window.petCareApp.openTreatmentModal(1019, 'Rocky', 'Esteban Martínez', 'Estética & Cuidados');">Editar</button>
+                  <button class="crud-btn" onclick="window.petCareApp.openClinicalDossierModal(1019);" style="background-color: var(--primary-purple-subtle); color: var(--primary-purple); font-weight: 700;">Ver Ficha</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         PANTALLA 5: PERSONAL RESPONSABLE
+         ====================================================================== -->
+    <section class="screen-view" id="view-staff">
+      <div class="two-col-admin-layout">
+
+        <!-- Columna Izquierda: Lista de Personal -->
+        <div class="admin-col-left">
+          <div class="col-header-bar">
+            <div class="col-header-title">
+              <h2>Personal Responsable</h2>
+              <p>Lista de Colaboradores y Especialistas Operativos</p>
+            </div>
+          </div>
+
+          <div class="filter-actions-row">
+            <div class="search-box">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="11" cy="11" r="8" stroke-width="2"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65" stroke-width="2"/>
+              </svg>
+              <input type="text" class="search-input" id="search-staff" placeholder="Buscar por nombre o cargo..." oninput="window.petCareApp.filterStaff(this.value)">
+            </div>
+            <button class="btn-primary-coral" style="white-space: nowrap; padding: 11px 20px;" onclick="window.petCareApp.toast('Formulario para Registrar Personal habilitado');">
+              + Registrar Personal
+            </button>
+          </div>
+
+          <!-- Listado de Colaboradores -->
+          <div class="items-list-container" id="staff-list">
+
+            <!-- Colaborador 1 (Seleccionado) -->
+            <div class="staff-card-item selected" data-staff-id="1" onclick="window.petCareApp.selectStaff(1)">
+              <div class="staff-card-top">
+                <div class="staff-avatar-3d-mini" id="staff-card-3d-1"></div>
+                <div class="staff-name-role">
+                  <h4>Dr. Carlos Méndez</h4>
+                  <span>Médico Veterinario Cirujano</span>
+                </div>
+              </div>
+              <div class="staff-card-footer">
+                <!-- Verde pastel: Disponible -->
+                <span class="badge-status available">Disponible</span>
+                <div class="crud-actions" onclick="event.stopPropagation();">
+                  <button class="crud-btn" onclick="window.petCareApp.toast('Editar ficha de Dr. Carlos Méndez');">Editar</button>
+                  <button class="crud-btn delete" onclick="window.petCareApp.toast('Acción protegida');">Eliminar</button>
+                  <button class="crud-btn" onclick="window.petCareApp.selectStaff(1)">Ver</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Colaborador 2 -->
+            <div class="staff-card-item" data-staff-id="2" onclick="window.petCareApp.selectStaff(2)">
+              <div class="staff-card-top">
+                <div class="staff-avatar-3d-mini" id="staff-card-3d-2"></div>
+                <div class="staff-name-role">
+                  <h4>Dra. Diana Gómez</h4>
+                  <span>Especialista Felina y Vacunación</span>
+                </div>
+              </div>
+              <div class="staff-card-footer">
+                <!-- Amarillo pastel: En Servicio -->
+                <span class="badge-status in-service">En Servicio</span>
+                <div class="crud-actions" onclick="event.stopPropagation();">
+                  <button class="crud-btn" onclick="window.petCareApp.toast('Editar ficha de Dra. Diana Gómez');">Editar</button>
+                  <button class="crud-btn delete" onclick="window.petCareApp.toast('Acción protegida');">Eliminar</button>
+                  <button class="crud-btn" onclick="window.petCareApp.selectStaff(2)">Ver</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Colaborador 3 -->
+            <div class="staff-card-item" data-staff-id="3" onclick="window.petCareApp.selectStaff(3)">
+              <div class="staff-card-top">
+                <div class="staff-avatar-3d-mini" id="staff-card-3d-3"></div>
+                <div class="staff-name-role">
+                  <h4>Andrés Silva</h4>
+                  <span>Estilista Canino y Cuidador</span>
+                </div>
+              </div>
+              <div class="staff-card-footer">
+                <!-- Rojo/Rosa pastel: No Disponible -->
+                <span class="badge-status unavailable">No Disponible</span>
+                <div class="crud-actions" onclick="event.stopPropagation();">
+                  <button class="crud-btn" onclick="window.petCareApp.toast('Editar ficha de Andrés Silva');">Editar</button>
+                  <button class="crud-btn delete" onclick="window.petCareApp.toast('Acción protegida');">Eliminar</button>
+                  <button class="crud-btn" onclick="window.petCareApp.selectStaff(3)">Ver</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Ficha del Colaborador -->
+        <div class="admin-col-right">
+          <div class="colaborator-dossier-card" id="staff-dossier-card">
+
+            <div class="dossier-header-flex">
+              <!-- Avatar 3D Nativo y Animado del Colaborador (Hombre / Mujer) -->
+              <div class="dossier-avatar-large">
+                <div id="staff-dossier-3d-canvas" style="width: 100%; height: 100%;"></div>
+              </div>
+              <div class="dossier-name-rating">
+                <h3 id="staff-dossier-name">Dr. Carlos Méndez</h3>
+                <div class="dossier-role-text" id="staff-dossier-profile">Médico Veterinario Cirujano</div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                  <span class="badge-status available" id="staff-dossier-badge">Disponible</span>
+                  <span class="rating-badge">★ 4.9 (45 reseñas)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Información básica -->
+            <div class="dossier-info-list">
+              <div class="dossier-info-pill">
+                <label>Documento</label>
+                <p id="staff-dossier-doc">C.C. 1.020.456.789</p>
+              </div>
+              <div class="dossier-info-pill">
+                <label>Celular</label>
+                <p id="staff-dossier-phone">+57 312 456 7890</p>
+              </div>
+              <div class="dossier-info-pill">
+                <label>Correo Electrónico</label>
+                <p id="staff-dossier-email" style="font-size: 0.8rem; word-break: break-all;">carlos.mendez@petcarehome.com</p>
+              </div>
+              <div class="dossier-info-pill">
+                <label>Especialidad</label>
+                <p id="staff-dossier-spec">Medicina General y Cirugía Menor</p>
+              </div>
+            </div>
+
+            <!-- Horarios y disponibilidad semanal con fila L-D -->
+            <div class="availability-week-box">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <h5>Jornada Semanal: Lunes a Viernes (08:00 AM - 05:00 PM)</h5>
+                <span style="font-size: 0.74rem; color: var(--primary-purple); font-weight: 700;">40 hrs/sem</span>
+              </div>
+              <!-- Fila de días L-D con marcas visuales -->
+              <div class="week-days-row" id="staff-week-chips">
+                <div class="week-day-chip active" title="Lunes Activo">
+                  <span>L</span>
+                  <span class="chip-dot"></span>
+                </div>
+                <div class="week-day-chip active" title="Martes Activo">
+                  <span>M</span>
+                  <span class="chip-dot"></span>
+                </div>
+                <div class="week-day-chip active" title="Miércoles Activo">
+                  <span>M</span>
+                  <span class="chip-dot"></span>
+                </div>
+                <div class="week-day-chip active" title="Jueves Activo">
+                  <span>J</span>
+                  <span class="chip-dot"></span>
+                </div>
+                <div class="week-day-chip active" title="Viernes Activo">
+                  <span>V</span>
+                  <span class="chip-dot"></span>
+                </div>
+                <div class="week-day-chip" title="Sábado Libre">
+                  <span>S</span>
+                  <span class="chip-dot"></span>
+                </div>
+                <div class="week-day-chip" title="Domingo Libre">
+                  <span>D</span>
+                  <span class="chip-dot"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Servicios asignados hoy: timeline vertical -->
+            <div class="timeline-section-box">
+              <h5>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+                Servicios asignados para hoy (11 de Octubre)
+              </h5>
+              <div class="vertical-timeline" id="staff-today-timeline">
+                <div class="timeline-item">
+                  <div class="timeline-marker done"></div>
+                  <div class="timeline-content-card">
+                    <span class="timeline-time-badge">09:00 AM</span>
+                    <div class="timeline-title-detail">Max (Consulta Médica General)</div>
+                    <small style="color: var(--text-secondary); font-size: 0.72rem;">Dirección: Calle 127 # 15-42</small>
+                  </div>
+                </div>
+
+                <div class="timeline-item">
+                  <div class="timeline-marker next"></div>
+                  <div class="timeline-content-card">
+                    <span class="timeline-time-badge">11:00 AM</span>
+                    <div class="timeline-title-detail">Toby (Control y Limpieza de Oídos)</div>
+                    <small style="color: var(--text-secondary); font-size: 0.72rem;">Dirección: Cra 7 # 116-20</small>
+                  </div>
+                </div>
+
+                <div class="timeline-item">
+                  <div class="timeline-marker"></div>
+                  <div class="timeline-content-card">
+                    <span class="timeline-time-badge">02:30 PM</span>
+                    <div class="timeline-title-detail">Simba (Seguimiento Domiciliario)</div>
+                    <small style="color: var(--text-secondary); font-size: 0.72rem;">Dirección: Carrera 19 # 104-12</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Acciones -->
+            <div class="dossier-actions-bar">
+              <button class="btn-primary-coral" onclick="window.petCareApp.openEditStaffModal();">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 20h9"/>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                </svg>
+                <span>Modificar Ficha</span>
+              </button>
+              <button class="btn-secondary-white" onclick="window.petCareApp.navigate('appointments');">
+                Volver a Agenda
+              </button>
+            </div>
+
+            <!-- Aviso de Privacidad de Datos -->
+            <div class="privacy-disclaimer-notice">
+              <strong>Nota de Privacidad de Datos:</strong> Los documentos, teléfonos, correos y direcciones son datos ficticios diseñados con fines de presentación según la Ley 1581 de 2012 y el alcance del proyecto.
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ========================================================================
+     MODAL DE REGISTRO DE TRATAMIENTO (Pantalla 4 según Especificación)
+     Capa negra semitransparente ~40% opacidad, centrado, bordes 24-30px
+     ======================================================================== -->
+<div class="modal-overlay" id="treatment-modal">
+  <div class="modal-dialog-large" role="dialog" aria-modal="true" aria-labelledby="modal-treatment-title">
+
+    <!-- Botón de cierre X discreto -->
+    <button class="modal-close-btn" id="modal-close-x" onclick="window.petCareApp.closeTreatmentModal();" title="Cerrar ventana modal">✕</button>
+
+    <!-- Encabezado con título, subtítulo con huella y cita -->
+    <div class="modal-header-section">
+      <h3 class="modal-title-main" id="modal-treatment-title">Registrar Tratamiento - Cita #1024</h3>
+      <div class="modal-subtitle-target">
+        <!-- Huella sutil -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="color: #FD79A8;">
+          <path d="M12 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm-6 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm12 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-7.5 4.5c0 1.93 2.07 3.5 4.5 3.5s4.5-1.57 4.5-3.5c0-1.88-2.61-4.5-4.5-4.5s-4.5 2.62-4.5 4.5z"/>
+        </svg>
+        <span>Registrar Tratamiento para Max</span>
+      </div>
+    </div>
+
+    <!-- Mini ilustración de perro con botiquín y 2 cápsulas de contexto -->
+    <div class="modal-context-bar">
+      <!-- Avatar 3D Animado de la Mascota del Tratamiento Clínico -->
+      <div id="pet-3d-treatment-avatar" style="width: 58px; height: 58px; border-radius: 16px; overflow: hidden; background: #FAF9FE; border: 1.5px solid var(--border-subtle); flex-shrink: 0; box-shadow: var(--shadow-sm);" title="Avatar 3D en vivo del paciente"></div>
+
+      <div class="context-capsules-group">
+        <div class="context-capsule-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--primary-purple);">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span id="modal-capsule-pet">Mascota: Max (Dueño: Juan Pérez)</span>
+        </div>
+        <div class="context-capsule-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color: #10B981;">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 14 14"/>
+          </svg>
+          <span id="modal-capsule-service">Tipo de Servicio: Consulta Médica</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulario Clínico -->
+    <form id="treatment-form" onsubmit="event.preventDefault(); window.petCareApp.submitTreatmentForm();">
+      <!-- 1. Procedimiento Realizado -->
+      <div class="form-group">
+        <label class="form-label" for="treatment-procedure">
+          Procedimiento Realizado <span class="required-dot">*</span>
+        </label>
+        <textarea class="form-textarea" id="treatment-procedure" placeholder="Ej. Aplicación de desparasitante, revisión general..." required style="min-height: 80px;">Aplicación de desparasitante oral de amplio espectro y examen físico completo preventivo.</textarea>
+      </div>
+
+      <!-- 2. Observaciones Clínicas (más amplia) -->
+      <div class="form-group">
+        <label class="form-label" for="treatment-observations">
+          Observaciones Clínicas <span class="required-dot">*</span>
+        </label>
+        <textarea class="form-textarea" id="treatment-observations" placeholder="Ej. Revisión general y limpieza de oídos. Continuar hidratación..." required style="min-height: 120px;">Revisión general y limpieza de oídos sin signos de otitis activa. Pelaje y mucosas en estado óptimo. Continuar hidratación diaria y dieta balanceada según fórmula médica.</textarea>
+      </div>
+
+      <!-- 3. Próximo Control (Opcional) con icono de calendario -->
+      <div class="form-group">
+        <label class="form-label" for="treatment-next-control">
+          Próximo Control (Opcional)
+        </label>
+        <div class="input-with-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <input type="text" class="form-input" id="treatment-next-control" placeholder="Seleccionar fecha (Ej. 26 de Octubre)" value="26 de Octubre, 2026">
+        </div>
+      </div>
+
+      <!-- Acciones del Modal alineadas a la derecha -->
+      <div class="modal-footer-actions">
+        <button type="button" class="btn-secondary-white" onclick="window.petCareApp.closeTreatmentModal();">
+          Cancelar
+        </button>
+        <button type="submit" class="btn-primary-coral">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>Registrar Tratamiento</span>
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<!-- ========================================================================
+     MODAL DE FICHA CLÍNICA / FICHA DE LA VISITA (VER FICHA)
+     ======================================================================== -->
+<div class="modal-overlay" id="clinical-dossier-modal">
+  <div class="modal-dialog-extra-large" role="dialog" aria-modal="true" aria-labelledby="ficha-modal-title">
+    <button class="modal-close-btn" onclick="window.petCareApp.closeClinicalDossierModal();" title="Cerrar Ficha">✕</button>
+
+    <div class="ficha-header-badge-row">
+      <div class="ficha-title-block">
+        <h3 id="ficha-modal-title">Ficha Clínica de la Visita #1024</h3>
+        <span id="ficha-modal-subtitle">PetCare Home · Expediente Oficial de Atención Domiciliaria</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <span class="badge-status confirmed" id="ficha-status-badge">Confirmada</span>
+        <span class="badge-context" id="ficha-plan-badge">Plan: Esencial Canino</span>
+      </div>
+    </div>
+
+    <!-- Resumen del Paciente y Tutor -->
+    <div class="ficha-patient-summary">
+      <div class="patient-col-box">
+        <h4>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 8v4"/>
+            <path d="M12 16h.01"/>
+          </svg>
+          Datos de la Mascota
+        </h4>
+        <div class="patient-data-row">
+          <div>Nombre: <strong id="ficha-pet-name">Max</strong></div>
+          <div>Especie / Raza: <strong id="ficha-pet-breed">Canino · Golden Retriever</strong></div>
+          <div>Edad & Peso: <strong id="ficha-pet-age-weight">2 Años · 10.0 Kg</strong></div>
+          <div>Antecedentes: <span id="ficha-pet-history" style="color: #4A5568;">Vacunas al día. Sensibilidad a proteínas de pollo.</span></div>
+        </div>
+      </div>
+
+      <div class="patient-col-box">
+        <h4>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          Datos del Tutor & Dirección
+        </h4>
+        <div class="patient-data-row">
+          <div>Tutor: <strong id="ficha-owner-name">Juan Pérez</strong></div>
+          <div>Documento: <strong>C.C. 1.018.945.321</strong></div>
+          <div>Teléfono de Contacto: <strong>+57 312 456 7890</strong></div>
+          <div>Dirección Domicilio: <span id="ficha-address">Calle 127 # 15-42, Apto 502, Usaquén, Bogotá</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Signos Vitales Registrados -->
+    <div class="vitals-grid-row">
+      <div class="vital-chip">
+        <small>Temperatura</small>
+        <strong>38.6 °C</strong>
+      </div>
+      <div class="vital-chip">
+        <small>Frecuencia Cardíaca</small>
+        <strong>110 lpm</strong>
+      </div>
+      <div class="vital-chip">
+        <small>Mucosas</small>
+        <strong>Rosadas / Húmedas</strong>
+      </div>
+      <div class="vital-chip">
+        <small>Condición Corporal</small>
+        <strong>3 / 5 (Ideal)</strong>
+      </div>
+    </div>
+
+    <!-- Procedimiento y Examen Clínico -->
+    <div class="clinical-section-box">
+      <h4>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+        Procedimiento Realizado
+      </h4>
+      <p id="ficha-procedure-text">Desparasitación interna preventiva con suspensión oral de amplio espectro. Limpieza ótica profunda y desparasitación externa con pipeta tópica.</p>
+    </div>
+
+    <div class="clinical-section-box">
+      <h4>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        Observaciones Clínicas y Recomendaciones
+      </h4>
+      <p id="ficha-observations-text">Examen físico general satisfactorio. Conductos auditivos limpios sin signos de infección o presencia de ácaros. Se recomienda mantener hidratación con agua fresca y programar refuerzo de control en la fecha indicada.</p>
+      <div class="clinical-badge-footer">
+        <span>Profesional Tratante: <strong id="ficha-vet-name">Dr. Carlos Méndez (M.V. T.P. 24890)</strong></span>
+        <span>Próximo Control Sugerido: <strong id="ficha-next-control" style="color: var(--primary-purple);">26 de Octubre, 2026</strong></span>
+      </div>
+    </div>
+
+    <!-- Acciones al pie de la Ficha -->
+    <div class="modal-footer-actions">
+      <button type="button" class="btn-secondary-white" onclick="window.petCareApp.printFicha();">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 6 2 18 2 18 9"/>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+          <rect x="6" y="14" width="12" height="8"/>
+        </svg>
+        <span>Imprimir Ficha</span>
+      </button>
+
+      <button type="button" class="btn-secondary-white" onclick="window.petCareApp.editFromFicha();" style="border-color: var(--primary-purple); color: var(--primary-purple); font-weight: 700;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 20h9"/>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+        <span>Modificar Tratamiento</span>
+      </button>
+
+      <button type="button" class="btn-primary-coral" onclick="window.petCareApp.closeClinicalDossierModal();">
+        Cerrar Ficha
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================================
+     MODAL PARA MODIFICAR FICHA DE PERSONAL RESPONSABLE
+     ======================================================================== -->
+<div class="modal-overlay" id="edit-staff-modal">
+  <div class="modal-dialog-large" role="dialog" aria-modal="true" aria-labelledby="edit-staff-title">
+    <button class="modal-close-btn" onclick="window.petCareApp.closeEditStaffModal();">✕</button>
+    <div class="modal-header-section" style="display: flex; align-items: center; gap: 16px;">
+      <div style="width: 58px; height: 58px; border-radius: 50%; overflow: hidden; border: 2px solid #FFFFFF; box-shadow: 0 4px 12px rgba(108, 92, 231, 0.15); flex-shrink: 0; background: linear-gradient(135deg, #ECE9FD, #D8D2FB);">
+        <div id="staff-edit-3d-avatar" style="width: 100%; height: 100%;"></div>
+      </div>
+      <div>
+        <h3 class="modal-title-main" id="edit-staff-title">Modificar Ficha del Colaborador</h3>
+        <div class="modal-subtitle-target">
+          <span>Actualizar información personal y disponibilidad operativa</span>
+        </div>
+      </div>
+    </div>
+
+    <form id="edit-staff-form" onsubmit="event.preventDefault(); window.petCareApp.saveStaffChanges();">
+      <div class="form-row-2col">
+        <div class="form-group">
+          <label class="form-label">Nombre del Colaborador <span class="required-dot">*</span></label>
+          <input type="text" class="form-input" id="edit-staff-name" required value="Dr. Carlos Méndez">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Cargo / Perfil <span class="required-dot">*</span></label>
+          <input type="text" class="form-input" id="edit-staff-profile" required value="Médico Veterinario Cirujano">
+        </div>
+      </div>
+
+      <div class="form-row-2col">
+        <div class="form-group">
+          <label class="form-label">Teléfono Celular <span class="required-dot">*</span></label>
+          <input type="text" class="form-input" id="edit-staff-phone" required value="+57 312 456 7890">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Correo Electrónico <span class="required-dot">*</span></label>
+          <input type="email" class="form-input" id="edit-staff-email" required value="carlos.mendez@petcarehome.com">
+        </div>
+      </div>
+
+      <div class="form-row-2col">
+        <div class="form-group">
+          <label class="form-label">Especialidad Clínica</label>
+          <input type="text" class="form-input" id="edit-staff-spec" value="Medicina General y Cirugía Menor">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Estado de Disponibilidad</label>
+          <div class="form-select-styled">
+            <select class="form-select" id="edit-staff-status">
+              <option value="available" selected>Disponible</option>
+              <option value="in-service">En Servicio</option>
+              <option value="unavailable">No Disponible</option>
+            </select>
+            <span class="select-arrow">▼</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer-actions">
+        <button type="button" class="btn-secondary-white" onclick="window.petCareApp.closeEditStaffModal();">Cancelar</button>
+        <button type="submit" class="btn-primary-coral">Guardar Cambios</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ========================================================================
+     TOAST DE NOTIFICACIÓN
+     ======================================================================== -->
+<div class="toast-notification" id="toast-box">
+  <span class="toast-icon">✓</span>
+  <span id="toast-message">Acción completada con éxito</span>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
